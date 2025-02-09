@@ -1,0 +1,14 @@
+Step 1 : Load and display the 3D Ship on screen with the content manager
+Step 2 : Move the ship, using vector 3 and inputs
+Step 3 : Aim and rotate the ship, using matrices / transform
+Step 4 : Shoot and make projectiles collide
+Step 5 : Get a power up, a parametrable shooting system
+Step 6 : A moving enemy, whicn can shoot
+Step 7 : Waves of enemies
+Step 8 : Particles and explosions
+Step 9 : Sounds and music
+Step 10 : Graphics polishing with Basic effect [using the shader to signal when enemies are hit etc.]
+Step 11 : Conversations and 2d UI
+Step 12 : A moving floor [either just 1 or 2 scroling planes with texture, or a mountain system with vertex shader and noise. But maybe this is too advanced for a first 3d tutorial ?]
+
+Spaceship by Jazoone - https://www.cgtrader.com/3d-models?author=jazoone
