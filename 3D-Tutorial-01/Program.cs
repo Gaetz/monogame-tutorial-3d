@@ -1,2 +1,2 @@
-﻿using var game = new _3D_Tutorial_01.Game1();
+﻿using var game = new Tutorial_01.Game1();
 game.Run();

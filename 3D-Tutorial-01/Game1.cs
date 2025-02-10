@@ -2,12 +2,16 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace _3D_Tutorial_01
+namespace Tutorial_01
 {
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private Player player;
+
+        private Matrix view = Matrix.CreateLookAt(new Vector3(0, 0, -100), new Vector3(0, 0, 0), Vector3.UnitY);
+        private Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800f / 480f, 0.1f, 100f);
 
         public Game1()
         {
@@ -27,7 +31,8 @@ namespace _3D_Tutorial_01
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            player = new Player();
+            player.Load(Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -35,7 +40,8 @@ namespace _3D_Tutorial_01
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            double dt = gameTime.ElapsedGameTime.TotalSeconds;
+            player.Update(dt);
 
             base.Update(gameTime);
         }
@@ -44,7 +50,7 @@ namespace _3D_Tutorial_01
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            player.Draw(view, projection);
 
             base.Draw(gameTime);
         }
