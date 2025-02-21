@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Tutorial_01
+namespace Tutorial_02
 {
     public class Game1 : Game
     {
