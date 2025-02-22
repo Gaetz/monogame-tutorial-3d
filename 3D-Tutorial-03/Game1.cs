@@ -2,13 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Tutorial_01
+namespace Tutorial_03
 {
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Player player;
+        private PlayerAim playerAim;
 
         private Matrix view = Matrix.CreateLookAt(new Vector3(0, 0, 100), new Vector3(0, 0, 0), Vector3.UnitY);
         private Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800f / 480f, 1f, 10000f);
@@ -31,7 +32,10 @@ namespace Tutorial_01
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            player = new Player();
+            playerAim = new PlayerAim();
+            playerAim.Load(Content, GraphicsDevice);
+
+            player = new Player(playerAim);
             player.Load(Content);
         }
 
@@ -41,6 +45,7 @@ namespace Tutorial_01
                 Exit();
 
             double dt = gameTime.ElapsedGameTime.TotalSeconds;
+            playerAim.Update(dt);
             player.Update(dt);
 
             base.Update(gameTime);
@@ -50,6 +55,10 @@ namespace Tutorial_01
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            GraphicsDevice.BlendState = BlendState.NonPremultiplied;
+            playerAim.Draw(view, projection);
+
+            GraphicsDevice.BlendState = BlendState.Opaque;
             player.Draw(view, projection);
 
             base.Draw(gameTime);

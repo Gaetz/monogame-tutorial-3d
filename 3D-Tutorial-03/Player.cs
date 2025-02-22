@@ -9,7 +9,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tutorial_02
+namespace Tutorial_03
 {
     internal class Player
     {
@@ -17,6 +17,7 @@ namespace Tutorial_02
         private Vector3 position;
         private Quaternion orientation;
         private Matrix world;
+        private PlayerAim playerAim;
 
         const float ACCELERATION_RATE = 4000.0f;
         const float DECELERATION_RATE = 0.85f;
@@ -26,11 +27,16 @@ namespace Tutorial_02
         private float speedX = 0.0f;
         private float speedY = 0.0f;
 
+        public Player(PlayerAim playerAim)
+        {
+            this.playerAim = playerAim;
+        }
+
         public void Load(ContentManager content)
         {
             model = content.Load<Model>("Ship");
             position = new Vector3(0, 0.0f, -250.0f);
-            orientation = Quaternion.CreateFromAxisAngle(Vector3.Up, MathHelper.Pi);
+            orientation = Quaternion.Identity;
         }
 
         private void HandlingInput(double dt)
@@ -52,11 +58,11 @@ namespace Tutorial_02
 
             if (state.IsKeyDown(Keys.A))
             {
-                speedX += ACCELERATION_RATE * (float)dt;
+                speedX -= ACCELERATION_RATE * (float)dt;
             }
             if (state.IsKeyDown(Keys.D))
             {
-                speedX -= ACCELERATION_RATE * (float)dt;
+                speedX += ACCELERATION_RATE * (float)dt;
             }
             if (MathF.Abs(speedX) > MAX_SPEED)
             {
@@ -90,9 +96,38 @@ namespace Tutorial_02
             speedY *= DECELERATION_RATE;
         }
 
+        private void HandleAiming()
+        {
+            Vector3 direction = playerAim.Position - position;
+            direction.Normalize();
+
+            Vector3 xAxis = Vector3.Cross(Vector3.Up, direction);
+            xAxis.Normalize();
+
+            Vector3 yAxis = Vector3.Cross(direction, xAxis);
+            yAxis.Normalize();
+
+            Matrix aim = Matrix.Identity;
+            aim.M11 = xAxis.X;
+            aim.M21 = yAxis.X;
+            aim.M31 = direction.X;
+
+            aim.M12 = xAxis.Y;
+            aim.M22 = yAxis.Y;
+            aim.M32 = direction.Y;
+
+            aim.M13 = xAxis.Z;
+            aim.M23 = yAxis.Z;
+            aim.M33 = direction.Z;
+
+            orientation = Quaternion.CreateFromRotationMatrix(aim);
+        }
+
         public void Update(double dt)
         {
             HandlingInput(dt);
+            HandleAiming();
+
             world = Matrix.CreateFromQuaternion(orientation) * Matrix.CreateTranslation(position);
         }
 

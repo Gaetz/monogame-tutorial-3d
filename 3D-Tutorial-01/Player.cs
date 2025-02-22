@@ -20,7 +20,7 @@ namespace Tutorial_01
         public void Load(ContentManager content)
         {
             model = content.Load<Model>("Ship");
-            position = new Vector3(0, 0.0f, 250.0f);
+            position = new Vector3(0, 0.0f, -250.0f);
             orientation = Quaternion.Identity;
         }
 

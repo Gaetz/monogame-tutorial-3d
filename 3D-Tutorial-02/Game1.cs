@@ -10,7 +10,7 @@ namespace Tutorial_02
         private SpriteBatch _spriteBatch;
         private Player player;
 
-        private Matrix view = Matrix.CreateLookAt(new Vector3(0, 0, -100), new Vector3(0, 0, 0), Vector3.UnitY);
+        private Matrix view = Matrix.CreateLookAt(new Vector3(0, 0, 100), new Vector3(0, 0, 0), Vector3.UnitY);
         private Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800f / 480f, 1f, 10000f);
 
         public Game1()
