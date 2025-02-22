@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3D-Tutorial-02", "3D-Tutori
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3D-Tutorial-03", "3D-Tutorial-03\3D-Tutorial-03.csproj", "{A307A9A5-EFFA-4F48-8709-A0754ABC3418}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3D-Tutorial-04", "3D-Tutorial-04\3D-Tutorial-04.csproj", "{93FE960D-57CC-4561-8407-463DB19AB085}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{A307A9A5-EFFA-4F48-8709-A0754ABC3418}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A307A9A5-EFFA-4F48-8709-A0754ABC3418}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A307A9A5-EFFA-4F48-8709-A0754ABC3418}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93FE960D-57CC-4561-8407-463DB19AB085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93FE960D-57CC-4561-8407-463DB19AB085}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93FE960D-57CC-4561-8407-463DB19AB085}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93FE960D-57CC-4561-8407-463DB19AB085}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

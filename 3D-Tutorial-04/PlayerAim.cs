@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
-namespace Tutorial_03
+namespace Tutorial_04
 {
     internal class PlayerAim
     {
@@ -37,8 +37,8 @@ namespace Tutorial_03
         public void Update(double dt)
         {
             MouseState mouse = Mouse.GetState();
-            position.X = (device.Viewport.Width / 2 - mouse.X) * -1.04f;
-            position.Y = (device.Viewport.Height / 2 - mouse.Y) * 1.04f;
+            position.X = (device.Viewport.Width / 2 - mouse.X) * -10.04f;
+            position.Y = (device.Viewport.Height / 2 - mouse.Y) * 10.04f;
 
             world = Matrix.CreateTranslation(position);
         }
