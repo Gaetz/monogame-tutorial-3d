@@ -75,17 +75,12 @@ namespace Tutorial_05
                 enemy.Update(dt);
 
                 // Enemy collision with projectiles
-                foreach (Projectile projectile in projectiles)
+                for (int i = projectiles.Count - 1; i >= 0; i--)
                 {
-                    if (projectile.Position.Z <= -500f && projectile.Position.Z >= -600f)
-                    {
-                        // print blop
-                        Console.WriteLine("Blop");
-                    }
-                    if (enemy.BoundingBox.Intersects(projectile.BoundingBox))
+                    if (enemy.BoundingBox.Intersects(projectiles[i].BoundingBox))
                     {
                         enemy.SetRandomPosition();
-                        projectiles.Remove(projectile);
+                        projectiles.RemoveAt(i);
                         break;
                     }
                 }
