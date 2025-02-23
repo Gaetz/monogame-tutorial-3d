@@ -9,30 +9,19 @@ using System.Threading.Tasks;
 
 namespace Tutorial_05
 {
-    internal class Enemy
+    internal class Enemy : Entity
     {
-        private Model model;
-        private Vector3 position;
-        private Quaternion orientation;
-        private Vector3 scale;
-        private Matrix world;
-
         private const float COLLIDER_SCALE = 4.0f;
-
-        public Vector3 Position
-        {
-            get { return position; }
-        }
+        private BoundingBox boundingBox;
 
         public BoundingBox BoundingBox
         {
-            get { return CreateBoundingBox(); }
+            get { return boundingBox; }
         }
 
-        public Enemy(Vector3 position)
+        public Enemy(Vector3 position) : base()
         {
             this.position = position;
-            orientation = Quaternion.Identity;
             scale = new Vector3(10f, 10f, 10f);
         }
 
@@ -45,28 +34,10 @@ namespace Tutorial_05
             return new BoundingBox(min, max);
         }
 
-        public void Load(ContentManager content)
+        public override void Update(double dt)
         {
-            model = content.Load<Model>("BeachBall");
-        }
-
-        public void Update(double dt)
-        {
-            world = Matrix.CreateScale(scale) * Matrix.CreateFromQuaternion(orientation) * Matrix.CreateTranslation(position);
-        }
-
-        public void Draw(Matrix view, Matrix projection)
-        {
-            foreach (ModelMesh mesh in model.Meshes)
-            {
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.World = world;
-                    effect.View = view;
-                    effect.Projection = projection;
-                }
-                mesh.Draw();
-            }
+            base.Update(dt);
+            boundingBox = CreateBoundingBox();
         }
 
         public void SetRandomPosition()

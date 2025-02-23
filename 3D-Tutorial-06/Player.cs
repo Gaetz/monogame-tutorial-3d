@@ -11,15 +11,11 @@ using System.Threading.Tasks;
 
 namespace Tutorial_06
 {
-    internal class Player
+    internal class Player : Entity
     {
-        private Model model;
-        private Vector3 position;
-        private Quaternion orientation;
-        private Matrix world;
-
         private PlayerAim playerAim;
         private Game1 game;
+        private BoundingBox boundingBox;
 
         const float ACCELERATION_RATE = 4000.0f;
         const float DECELERATION_RATE = 0.85f;
@@ -35,7 +31,7 @@ namespace Tutorial_06
 
         public BoundingBox BoundingBox
         {
-            get { return CreateBoundingBox(); }
+            get { return boundingBox; }
         }
 
         public Player(PlayerAim playerAim, Game1 game)
@@ -44,11 +40,10 @@ namespace Tutorial_06
             this.game = game;
         }
 
-        public void Load(ContentManager content)
+        public override void Load(ContentManager content, string modelName)
         {
-            model = content.Load<Model>("Ship");
+            base.Load(content, modelName);
             position = new Vector3(0, 0.0f, -250.0f);
-            orientation = Quaternion.Identity;
         }
 
         private void HandlingInput(double dt)
@@ -157,22 +152,8 @@ namespace Tutorial_06
             }
             cooldownTimer -= (float)dt;
 
-            world = Matrix.CreateFromQuaternion(orientation) * Matrix.CreateTranslation(position);
-        }
-
-        public void Draw(Matrix view, Matrix projection)
-        {
-            foreach (ModelMesh mesh in model.Meshes)
-            {
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.World = world;
-                    effect.View = view;
-                    effect.Projection = projection;
-                }
-
-                mesh.Draw();
-            }
+            base.Update(dt);
+            boundingBox = CreateBoundingBox();
         }
 
         public void PowerUp()

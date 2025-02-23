@@ -41,10 +41,10 @@ namespace Tutorial_05
             playerAim.Load(Content, GraphicsDevice);
 
             player = new Player(playerAim, this);
-            player.Load(Content);
+            player.Load(Content, "Ship");
 
             enemies.Add(new Enemy(new Vector3(0, 0, -500)));
-            enemies[0].Load(Content);
+            enemies[0].Load(Content, "BeachBall");
         }
 
         protected override void Update(GameTime gameTime)
@@ -115,7 +115,7 @@ namespace Tutorial_05
         public void AddProjectile(Vector3 position, Quaternion orientation, float speed, bool fromPlayer = true)
         {
             var newProjectile = new Projectile(position, orientation, speed, fromPlayer);
-            newProjectile.Load(Content);
+            newProjectile.Load(Content, "Cube");
             projectiles.Add(newProjectile);
         }
     }

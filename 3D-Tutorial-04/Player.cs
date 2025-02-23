@@ -11,13 +11,8 @@ using System.Threading.Tasks;
 
 namespace Tutorial_04
 {
-    internal class Player
+    internal class Player : Entity
     {
-        private Model model;
-        private Vector3 position;
-        private Quaternion orientation;
-        private Matrix world;
-
         private PlayerAim playerAim;
         private Game1 game;
 
@@ -31,17 +26,16 @@ namespace Tutorial_04
         private float speedY = 0.0f;
         private float cooldownTimer = 0.0f;
 
-        public Player(PlayerAim playerAim, Game1 game)
+        public Player(PlayerAim playerAim, Game1 game) : base()
         {
             this.playerAim = playerAim;
             this.game = game;
         }
 
-        public void Load(ContentManager content)
+        public override void Load(ContentManager content, string modelName)
         {
-            model = content.Load<Model>("Ship");
+            base.Load(content, modelName);
             position = new Vector3(0, 0.0f, -250.0f);
-            orientation = Quaternion.Identity;
         }
 
         private void HandlingInput(double dt)
@@ -129,7 +123,7 @@ namespace Tutorial_04
             orientation = Quaternion.CreateFromRotationMatrix(aim);
         }
 
-        public void Update(double dt)
+        public override void Update(double dt)
         {
             HandlingInput(dt);
             HandleAiming();
@@ -143,23 +137,7 @@ namespace Tutorial_04
             }
             cooldownTimer -= (float)dt;
 
-            world = Matrix.CreateFromQuaternion(orientation) * Matrix.CreateTranslation(position);
+            base.Update(dt);
         }
-
-        public void Draw(Matrix view, Matrix projection)
-        {
-            foreach (ModelMesh mesh in model.Meshes)
-            {
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.World = world;
-                    effect.View = view;
-                    effect.Projection = projection;
-                }
-
-                mesh.Draw();
-            }
-        }
-
     }
 }

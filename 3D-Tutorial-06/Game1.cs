@@ -45,10 +45,10 @@ namespace Tutorial_06
             playerAim.Load(Content, GraphicsDevice);
 
             player = new Player(playerAim, this);
-            player.Load(Content);
+            player.Load(Content, "Ship");
 
             enemies.Add(new Enemy(new Vector3(0, 0, -500)));
-            enemies[0].Load(Content);
+            enemies[0].Load(Content, "BeachBall");
         }
 
         protected override void Update(GameTime gameTime)
@@ -95,7 +95,7 @@ namespace Tutorial_06
             if (powerUpTimer <= 0)
             {
                 powerUps.Add(new PowerUp(new Vector3(0, 0, 0), 200.0f));
-                powerUps[powerUps.Count - 1].Load(Content);
+                powerUps[powerUps.Count - 1].Load(Content, "BeachBall");
                 powerUps[powerUps.Count - 1].SetRandomPosition();
                 powerUpTimer = POWER_UP_TIME;
             }
@@ -150,7 +150,7 @@ namespace Tutorial_06
         public void AddProjectile(Vector3 position, Quaternion orientation, float speed, bool fromPlayer = true)
         {
             var newProjectile = new Projectile(position, orientation, speed, fromPlayer);
-            newProjectile.Load(Content);
+            newProjectile.Load(Content, "Cube");
             projectiles.Add(newProjectile);
         }
     }

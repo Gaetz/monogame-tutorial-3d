@@ -9,31 +9,28 @@ using System.Threading.Tasks;
 
 namespace Tutorial_06
 {
-    internal class PowerUp
+    internal class PowerUp : Entity
     {
-        private Model model;
-        private Vector3 position;
-        private Quaternion orientation;
-        private Vector3 scale;
-        private Matrix world;
         private float speed;
+        private BoundingBox boundingBox;
 
         public BoundingBox BoundingBox
         {
-            get { return CreateBoundingBox(); }
-        }
-
-        public Vector3 Position 
-        { 
-            get { return position; } 
+            get { return boundingBox; }
         }
 
         public PowerUp(Vector3 position, float speed)
         {
             this.position = position;
             this.speed = speed;
-            orientation = Quaternion.Identity;
             scale = new Vector3(10f, 10f, 10f);
+        }
+
+        public override void Update(double dt)
+        {
+            position.Z += speed * (float)dt;
+            base.Update(dt);
+            boundingBox = CreateBoundingBox();
         }
 
         private BoundingBox CreateBoundingBox()
@@ -45,30 +42,6 @@ namespace Tutorial_06
             return new BoundingBox(min, max);
         }
 
-        public void Load(ContentManager content)
-        {
-            model = content.Load<Model>("BeachBall");
-        }
-
-        public void Update(double dt)
-        {
-            position.Z += speed * (float)dt;
-            world = Matrix.CreateScale(scale) * Matrix.CreateFromQuaternion(orientation) * Matrix.CreateTranslation(position);
-        }
-
-        public void Draw(Matrix view, Matrix projection)
-        {
-            foreach (ModelMesh mesh in model.Meshes)
-            {
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.World = world;
-                    effect.View = view;
-                    effect.Projection = projection;
-                }
-                mesh.Draw();
-            }
-        }
         public void SetRandomPosition()
         {
             Random random = new Random();

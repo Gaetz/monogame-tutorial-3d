@@ -10,16 +10,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Tutorial_06
 {
-    internal class PlayerAim
+    internal class PlayerAim : Entity
     {
         private Quad quad;
-        private Vector3 position;
-        private Quaternion orientation;
-        private Matrix world;
         GraphicsDevice device;
-        public Vector3 Position
+
+        public PlayerAim() : base()
         {
-            get { return position; }
         }
 
         public void Load(ContentManager content, GraphicsDevice device)
@@ -34,16 +31,16 @@ namespace Tutorial_06
             quad = new Quad(Vector3.Zero, -Vector3.Forward, Vector3.Up, 1000, 1000, effect);
         }
 
-        public void Update(double dt)
+        public override void Update(double dt)
         {
             MouseState mouse = Mouse.GetState();
             position.X = (device.Viewport.Width / 2 - mouse.X) * -10.04f;
             position.Y = (device.Viewport.Height / 2 - mouse.Y) * 10.04f;
 
-            world = Matrix.CreateTranslation(position);
+            base.Update(dt);
         }
 
-        public void Draw(Matrix view, Matrix projection)
+        public override void Draw(Matrix view, Matrix projection)
         {
             quad.Draw(device, world, view, projection);
         }

@@ -9,21 +9,12 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Tutorial_06
 {
-    internal class Projectile
+    internal class Projectile : Entity
     {
-        private Model model;
-        private Vector3 position;
-        private Quaternion orientation;
-        private Vector3 scale;
         private float speed;
         private bool fromPlayer;
-        private Matrix world;
+        private BoundingBox boundingBox;
 
-        public Vector3 Position
-        {
-            get { return position; }
-        }
-        
         public bool FromPlayer
         {
             get { return fromPlayer; }
@@ -31,10 +22,10 @@ namespace Tutorial_06
 
         public BoundingBox BoundingBox
         {
-            get { return CreateBoundingBox(); }
+            get { return boundingBox; }
         }
 
-        public Projectile(Vector3 position, Quaternion orientation, float speed, bool fromPlayer = true)
+        public Projectile(Vector3 position, Quaternion orientation, float speed, bool fromPlayer = true) : base()
         {
             this.position = position;
             this.orientation = orientation;
@@ -42,9 +33,23 @@ namespace Tutorial_06
             this.fromPlayer = fromPlayer;
         }
 
+        public override void Load(ContentManager content, string modelName)
+        {
+            base.Load(content, modelName);
+            scale = new Vector3(5f, 5f, 50f);
+        }
+
+        public override void Update(double dt)
+        {
+            Vector3 direction = Vector3.Transform(-Vector3.Forward, orientation);
+            position += direction * speed * (float)dt;
+            base.Update(dt);
+            boundingBox = CreateBoundingBox();
+        }
+
         private BoundingBox CreateBoundingBox()
         {
-            Vector3[] vertices = { 
+            Vector3[] vertices = {
                 new Vector3(-0.5f, -0.5f, 0.5f), new Vector3(-0.5f, -0.5f, -0.5f),
                 new Vector3(-0.5f, 0.5f, 0.5f), new Vector3(-0.5f, 0.5f, -0.5f),
                 new Vector3(0.5f, -0.5f, 0.5f), new Vector3(0.5f, -0.5f, -0.5f),
@@ -55,33 +60,6 @@ namespace Tutorial_06
                 vertices[i] = Vector3.Transform(vertices[i], world);
             }
             return BoundingBox.CreateFromPoints(vertices);
-        }
-
-        public void Load(ContentManager content)
-        {
-            model = content.Load<Model>("Cube");
-            scale = new Vector3(5f, 5f, 50f);
-        }
-
-        public void Update(double dt)
-        {
-            Vector3 direction = Vector3.Transform(-Vector3.Forward, orientation);
-            position += direction * speed * (float)dt;
-            world = Matrix.CreateScale(scale) * Matrix.CreateFromQuaternion(orientation) * Matrix.CreateTranslation(position);
-        }
-
-        public void Draw(Matrix view, Matrix projection)
-        {
-            foreach (ModelMesh mesh in model.Meshes)
-            {
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.World = world;
-                    effect.View = view;
-                    effect.Projection = projection;
-                }
-                mesh.Draw();
-            }
         }
     }
 }
