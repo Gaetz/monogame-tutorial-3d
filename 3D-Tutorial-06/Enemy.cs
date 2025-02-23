@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tutorial_05
+namespace Tutorial_06
 {
     internal class Enemy
     {

@@ -7,39 +7,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tutorial_05
+namespace Tutorial_06
 {
-    internal class Enemy
+    internal class PowerUp
     {
         private Model model;
         private Vector3 position;
         private Quaternion orientation;
         private Vector3 scale;
         private Matrix world;
-
-        private const float COLLIDER_SCALE = 4.0f;
-
-        public Vector3 Position
-        {
-            get { return position; }
-        }
+        private float speed;
 
         public BoundingBox BoundingBox
         {
             get { return CreateBoundingBox(); }
         }
 
-        public Enemy(Vector3 position)
+        public Vector3 Position 
+        { 
+            get { return position; } 
+        }
+
+        public PowerUp(Vector3 position, float speed)
         {
             this.position = position;
+            this.speed = speed;
             orientation = Quaternion.Identity;
             scale = new Vector3(10f, 10f, 10f);
         }
 
         private BoundingBox CreateBoundingBox()
         {
-            Vector3 min = new Vector3(-0.5f * COLLIDER_SCALE, -0.5f * COLLIDER_SCALE, -0.5f * COLLIDER_SCALE);
-            Vector3 max = new Vector3(0.5f * COLLIDER_SCALE, 0.5f * COLLIDER_SCALE, 0.5f * COLLIDER_SCALE);
+            Vector3 min = new Vector3(-2, -2, -2);
+            Vector3 max = new Vector3(2, 2, 2);
             min = Vector3.Transform(min, world);
             max = Vector3.Transform(max, world);
             return new BoundingBox(min, max);
@@ -52,6 +52,7 @@ namespace Tutorial_05
 
         public void Update(double dt)
         {
+            position.Z += speed * (float)dt;
             world = Matrix.CreateScale(scale) * Matrix.CreateFromQuaternion(orientation) * Matrix.CreateTranslation(position);
         }
 
@@ -68,11 +69,10 @@ namespace Tutorial_05
                 mesh.Draw();
             }
         }
-
         public void SetRandomPosition()
         {
             Random random = new Random();
-            position = new Vector3(random.Next(-100, 100), random.Next(-100, 100), -500);
+            position = new Vector3(random.Next(-200, 200), random.Next(-100, 100), -1000);
         }
     }
 }
