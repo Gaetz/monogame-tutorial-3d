@@ -1,0 +1,165 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Metadata;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Tutorial_05
+{
+    internal class Player
+    {
+        private Model model;
+        private Vector3 position;
+        private Quaternion orientation;
+        private Matrix world;
+
+        private PlayerAim playerAim;
+        private Game1 game;
+
+        const float ACCELERATION_RATE = 4000.0f;
+        const float DECELERATION_RATE = 0.85f;
+        const float MAX_SPEED = 350.0f;
+        Rectangle BOUNDS = new Rectangle(-200, -140, 400, 280);
+        const float COOLDOWN = 0.25f;
+
+        private float speedX = 0.0f;
+        private float speedY = 0.0f;
+        private float cooldownTimer = 0.0f;
+
+        public Player(PlayerAim playerAim, Game1 game)
+        {
+            this.playerAim = playerAim;
+            this.game = game;
+        }
+
+        public void Load(ContentManager content)
+        {
+            model = content.Load<Model>("Ship");
+            position = new Vector3(0, 0.0f, -250.0f);
+            orientation = Quaternion.Identity;
+        }
+
+        private void HandlingInput(double dt)
+        {
+            // Controls
+            KeyboardState state = Keyboard.GetState();
+            if (state.IsKeyDown(Keys.W))
+            {
+                speedY += ACCELERATION_RATE * (float)dt;
+            }
+            if (state.IsKeyDown(Keys.S))
+            {
+                speedY -= ACCELERATION_RATE * (float)dt;
+            }
+            if (MathF.Abs(speedY) > MAX_SPEED)
+            {
+                speedY = MathF.Sign(speedY) * MAX_SPEED;
+            }
+
+
+            if (state.IsKeyDown(Keys.A))
+            {
+                speedX -= ACCELERATION_RATE * (float)dt;
+            }
+            if (state.IsKeyDown(Keys.D))
+            {
+                speedX += ACCELERATION_RATE * (float)dt;
+            }
+            if (MathF.Abs(speedX) > MAX_SPEED)
+            {
+                speedX = MathF.Sign(speedX) * MAX_SPEED;
+            }
+
+
+            position += new Vector3((float)(speedX * dt), (float)(speedY * dt), 0);
+            if (position.X < BOUNDS.Left)
+            {
+                position.X = BOUNDS.Left;
+                speedX = 0;
+            } 
+            else if (position.X > BOUNDS.Right)
+            {
+                position.X = BOUNDS.Right;
+                speedX = 0;
+            }
+            if (position.Y < BOUNDS.Top)
+            {
+                position.Y = BOUNDS.Top;
+                speedY = 0;
+            }
+            else if (position.Y > BOUNDS.Bottom)
+            {
+                position.Y = BOUNDS.Bottom;
+                speedY = 0;
+            }
+
+            speedX *= DECELERATION_RATE;
+            speedY *= DECELERATION_RATE;
+        }
+
+        private void HandleAiming()
+        {
+            Vector3 direction = playerAim.Position - position;
+            direction.Normalize();
+
+            Vector3 xAxis = Vector3.Cross(Vector3.Up, direction);
+            xAxis.Normalize();
+
+            Vector3 yAxis = Vector3.Cross(direction, xAxis);
+            yAxis.Normalize();
+
+            Matrix aim = Matrix.Identity;
+            aim.M11 = xAxis.X;
+            aim.M21 = yAxis.X;
+            aim.M31 = direction.X;
+
+            aim.M12 = xAxis.Y;
+            aim.M22 = yAxis.Y;
+            aim.M32 = direction.Y;
+
+            aim.M13 = xAxis.Z;
+            aim.M23 = yAxis.Z;
+            aim.M33 = direction.Z;
+
+            orientation = Quaternion.CreateFromRotationMatrix(aim);
+        }
+
+        public void Update(double dt)
+        {
+            HandlingInput(dt);
+            HandleAiming();
+
+            // Handle shooting
+            MouseState mouse = Mouse.GetState();
+            if (mouse.LeftButton == ButtonState.Pressed && cooldownTimer <= 0)
+            {
+                game.AddProjectile(position, orientation, 1000.0f);
+                cooldownTimer = COOLDOWN;
+            }
+            cooldownTimer -= (float)dt;
+
+            world = Matrix.CreateFromQuaternion(orientation) * Matrix.CreateTranslation(position);
+        }
+
+        public void Draw(Matrix view, Matrix projection)
+        {
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+                foreach (BasicEffect effect in mesh.Effects)
+                {
+                    effect.World = world;
+                    effect.View = view;
+                    effect.Projection = projection;
+                }
+
+                mesh.Draw();
+            }
+        }
+
+    }
+}
