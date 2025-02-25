@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 
-namespace Tutorial_07
+namespace Tutorial_08
 {
     enum EntityPhase
     {

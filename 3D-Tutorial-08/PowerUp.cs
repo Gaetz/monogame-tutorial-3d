@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 
-namespace Tutorial_06
+namespace Tutorial_08
 {
     internal class PowerUp : Entity
     {

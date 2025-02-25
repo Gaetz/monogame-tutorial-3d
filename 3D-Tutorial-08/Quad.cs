@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Tutorial_06
+namespace Tutorial_08
 {
     internal class Quad
     {

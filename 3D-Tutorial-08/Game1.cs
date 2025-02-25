@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
-namespace Tutorial_05
+namespace Tutorial_08
 {
     public class Game1 : Game
     {
@@ -17,6 +17,10 @@ namespace Tutorial_05
 
         private List<Projectile> projectiles = new List<Projectile>();
         private List<Enemy> enemies = new List<Enemy>();
+        private List<PowerUp> powerUps = new List<PowerUp>();
+
+        const float POWER_UP_TIME = 5.0f;
+        float powerUpTimer = 1;
 
         public Game1()
         {
@@ -78,10 +82,36 @@ namespace Tutorial_05
                 {
                     if (enemy.BoundingBox.Intersects(projectiles[i].BoundingBox))
                     {
-                        enemy.SetRandomPosition();
+                        enemy.RemoveHp();
                         projectiles.RemoveAt(i);
                         break;
                     }
+                }
+            }
+
+            // Remove dead enemies
+            for (int i = enemies.Count - 1; i >= 0; i--)
+            {
+                if (enemies[i].IsDead)
+                {
+                    enemies.RemoveAt(i);
+                }
+            }
+
+            // Power up collisions
+            for (int i = powerUps.Count - 1; i >= 0; i--)
+            {
+                powerUps[i].Update(dt);
+                if (player.BoundingBox.Intersects(powerUps[i].BoundingBox))
+                {
+                    player.PowerUp();
+                    powerUps.RemoveAt(i);
+                    break;
+                }
+                if (powerUps[i].Position.Z > 500)
+                {
+                    powerUps.RemoveAt(i);
+                    break;
                 }
             }
 
@@ -103,6 +133,11 @@ namespace Tutorial_05
             foreach (Enemy enemy in enemies)
             {
                 enemy.Draw(view, projection);
+            }
+
+            foreach (PowerUp powerUp in powerUps)
+            {
+                powerUp.Draw(view, projection);
             }
 
             GraphicsDevice.BlendState = BlendState.NonPremultiplied;
