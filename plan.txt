@@ -4,13 +4,14 @@ Step 3 : Aim and rotate the ship, using matrices / transform
 Step 4 : Shoot and make projectiles collide
 Step 5 : Make projectiles collide
 Step 6 : Get a power up, a parametrable shooting system
-Step 7 : A moving enemy, which can shoot
-Step 8 : Waves of enemies
-Step 9 : Particles and explosions
-Step 10 : Sounds and music
-Step 11 : Graphics polishing with Basic effect [using the shader to signal when enemies are hit etc.]
-Step 12 : Conversations and 2d UI
-Step 13 : A moving floor [either just 1 or 2 scroling planes with texture, or a mountain system with vertex shader and noise. But maybe this is too advanced for a first 3d tutorial ?]
-Step 14 : Better aiming ?
+Step 7 : A moving enemy
+Step 8 : A shooting enemy
+Step 9 : Waves of enemies
+Step 10 : Particles and explosions
+Step 11 : Sounds and music
+Step 12 : Graphics polishing with Basic effect [using the shader to signal when enemies are hit etc.]
+Step 13 : Conversations and 2d UI
+Step 14 : A moving floor [either just 1 or 2 scroling planes with texture, or a mountain system with vertex shader and noise. But maybe this is too advanced for a first 3d tutorial ?]
+Step 15 : Better aiming ?
 
 Spaceship by Jazoone - https://www.cgtrader.com/3d-models?author=jazoone
