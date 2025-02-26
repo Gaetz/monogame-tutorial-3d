@@ -58,13 +58,13 @@ namespace Tutorial_05
             player.Update(dt);
 
             // Manage projectiles
-            foreach (Projectile projectile in projectiles)
+            for (int i = projectiles.Count - 1; i >= 0; i--)
             {
-                projectile.Update(dt);
-                if (projectile.Position.Z > 10000)
+                projectiles[i].Update(dt);
+                if (projectiles[i].Position.Z < -10000)
                 {
-                    projectiles.Remove(projectile);
-                    break;
+                    projectiles.RemoveAt(i);
+                    continue;
                 }
             }
 

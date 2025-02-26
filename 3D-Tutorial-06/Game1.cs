@@ -65,7 +65,7 @@ namespace Tutorial_06
             foreach (Projectile projectile in projectiles)
             {
                 projectile.Update(dt);
-                if (projectile.Position.Z > 10000)
+                if (projectile.Position.Z < -10000)
                 {
                     projectiles.Remove(projectile);
                     break;

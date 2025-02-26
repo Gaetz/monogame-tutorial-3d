@@ -22,6 +22,11 @@ namespace Tutorial_08
         const float POWER_UP_TIME = 5.0f;
         float powerUpTimer = 1;
 
+        internal Player Player
+        {
+            get { return player; }
+        }
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -46,7 +51,7 @@ namespace Tutorial_08
             player = new Player(playerAim, this);
             player.Load(Content, "Ship");
 
-            enemies.Add(new Enemy(new Vector3(0, 0, -500)));
+            enemies.Add(new Enemy(new Vector3(0, 0, -500), this));
             enemies[0].Load(Content, "BeachBall");
         }
 
@@ -61,14 +66,32 @@ namespace Tutorial_08
             playerAim.Update(dt);
             player.Update(dt);
 
-            // Manage projectiles
-            foreach (Projectile projectile in projectiles)
+
+            for (int i = projectiles.Count - 1; i >= 0; i--)
             {
-                projectile.Update(dt);
-                if (projectile.Position.Z > 10000)
+                projectiles[i].Update(dt);
+                if (projectiles[i].Position.Z < -10000)
                 {
-                    projectiles.Remove(projectile);
-                    break;
+                    projectiles.RemoveAt(i);
+                }
+            }
+
+            // Manage projectiles
+            for (int i = projectiles.Count - 1; i >= 0; i--)
+            {
+                projectiles[i].Update(dt);
+                if (projectiles[i].Position.Z < -10000 && projectiles[i].Position.Z > 1000)
+                {
+                    projectiles.RemoveAt(i);
+                    continue;
+                }
+                // Collision with player
+                if (projectiles[i].BoundingBox.Intersects(player.BoundingBox)
+                    && !projectiles[i].FromPlayer)
+                {
+                    player.RemoveHp();
+                    projectiles.RemoveAt(i);
+                    continue;
                 }
             }
 
@@ -80,7 +103,8 @@ namespace Tutorial_08
                 // Enemy collision with projectiles
                 for (int i = projectiles.Count - 1; i >= 0; i--)
                 {
-                    if (enemy.BoundingBox.Intersects(projectiles[i].BoundingBox))
+                    if (enemy.BoundingBox.Intersects(projectiles[i].BoundingBox)
+                        && projectiles[i].FromPlayer)
                     {
                         enemy.RemoveHp();
                         projectiles.RemoveAt(i);
@@ -151,6 +175,11 @@ namespace Tutorial_08
             var newProjectile = new Projectile(position, orientation, speed, fromPlayer);
             newProjectile.Load(Content, "Cube");
             projectiles.Add(newProjectile);
+        }
+
+        public void GameOver()
+        {
+            Exit();
         }
     }
 }

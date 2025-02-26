@@ -55,5 +55,31 @@ namespace Tutorial_08
             }
             return BoundingBox.CreateFromPoints(vertices);
         }
+
+        public static Quaternion CreateQuaternionFromDirection(Vector3 direction)
+        {
+            direction.Normalize();
+
+            Vector3 xAxis = Vector3.Cross(Vector3.Up, direction);
+            xAxis.Normalize();
+
+            Vector3 yAxis = Vector3.Cross(direction, xAxis);
+            yAxis.Normalize();
+
+            Matrix aim = Matrix.Identity;
+            aim.M11 = xAxis.X;
+            aim.M21 = yAxis.X;
+            aim.M31 = direction.X;
+
+            aim.M12 = xAxis.Y;
+            aim.M22 = yAxis.Y;
+            aim.M32 = direction.Y;
+
+            aim.M13 = xAxis.Z;
+            aim.M23 = yAxis.Z;
+            aim.M33 = direction.Z;
+
+            return Quaternion.CreateFromRotationMatrix(aim);
+        }
     }
 }

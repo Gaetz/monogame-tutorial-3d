@@ -24,6 +24,9 @@ namespace Tutorial_08
         private float cooldownTimer = 0.0f;
         private int projectileNumber = 1;
 
+        private int hp = 10;
+        bool isDead = false;
+
         public BoundingBox BoundingBox
         {
             get { return boundingBox; }
@@ -102,28 +105,7 @@ namespace Tutorial_08
         private void HandleAiming()
         {
             Vector3 direction = playerAim.Position - position;
-            direction.Normalize();
-
-            Vector3 xAxis = Vector3.Cross(Vector3.Up, direction);
-            xAxis.Normalize();
-
-            Vector3 yAxis = Vector3.Cross(direction, xAxis);
-            yAxis.Normalize();
-
-            Matrix aim = Matrix.Identity;
-            aim.M11 = xAxis.X;
-            aim.M21 = yAxis.X;
-            aim.M31 = direction.X;
-
-            aim.M12 = xAxis.Y;
-            aim.M22 = yAxis.Y;
-            aim.M32 = direction.Y;
-
-            aim.M13 = xAxis.Z;
-            aim.M23 = yAxis.Z;
-            aim.M33 = direction.Z;
-
-            orientation = Quaternion.CreateFromRotationMatrix(aim);
+            orientation = Projectile.CreateQuaternionFromDirection(direction);
         }
 
         public void Update(double dt)
@@ -182,6 +164,16 @@ namespace Tutorial_08
                 vertices[i] = Vector3.Transform(vertices[i], world);
             }
             return BoundingBox.CreateFromPoints(vertices);
+        }
+
+        public void RemoveHp()
+        {
+            hp--;
+            if (hp <= 0)
+            {
+                isDead = true;
+                game.GameOver();
+            }
         }
     }
 }

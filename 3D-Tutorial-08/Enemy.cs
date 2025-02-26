@@ -20,6 +20,14 @@ namespace Tutorial_08
         Back
     }
 
+    enum ShootState 
+    {
+        Waiting,
+        Shooting,
+        Cooldown,
+        OutsideMainPhase
+    }
+
     internal class Enemy : Entity
     {
         private const float COLLIDER_SCALE = 4.0f;
@@ -34,7 +42,15 @@ namespace Tutorial_08
         private float mainPhaseDuration = -1.0f;
         private float mainPhaseCounter = 5.0f;
         private int hp = 5;
-        bool isDead = false;
+        private bool isDead = false;
+
+        private Game1 game;
+        private ShootState shootState = ShootState.OutsideMainPhase;
+        private const float SHOOTING_TIME = 2.0f;
+        private const float SHOOTING_INTERVAL = 0.5f;
+        private int PROJECTILE_NUMBER = 3;
+        private float shootingTimer = 0.0f;
+        private int projectileCount = 0;
 
         public BoundingBox BoundingBox
         {
@@ -46,9 +62,10 @@ namespace Tutorial_08
             get { return isDead; }
         }
 
-        public Enemy(Vector3 position) : base()
+        public Enemy(Vector3 position, Game1 game) : base()
         {
             this.targetPosition = position;
+            this.game = game;
             mainPhaseDuration = 5.0f;
             scale = new Vector3(10f, 10f, 10f);
             ChangePhase(EntityPhase.Enter);
@@ -106,6 +123,50 @@ namespace Tutorial_08
         private void UpdateMainPhase(double dt)
         {
             mainPhaseCounter += (float)dt;
+            switch (shootState)
+            {
+                case ShootState.Waiting:
+                    shootingTimer += (float)dt;
+                    if (shootingTimer > SHOOTING_TIME)
+                    {
+                        shootState = ShootState.Shooting;
+                        shootingTimer = 0.0f;
+                        projectileCount = 0;
+                    }
+                    break;
+                case ShootState.Shooting:
+                    shootingTimer += (float)dt;
+                    if (shootingTimer > SHOOTING_INTERVAL)
+                    {
+                        Vector3 direction = game.Player.Position - position;
+                        direction.Normalize();
+                        Quaternion directionRotation = Projectile.CreateQuaternionFromDirection(direction);
+                        game.AddProjectile(position, directionRotation, 500.0f, false);
+                        projectileCount++;
+                        shootingTimer = 0.0f;
+                    }
+                    if (projectileCount >= PROJECTILE_NUMBER)
+                    {
+                        shootingTimer = SHOOTING_INTERVAL * PROJECTILE_NUMBER;
+                        shootState = ShootState.Cooldown;
+                    }
+                    break;
+                case ShootState.Cooldown:
+                    shootingTimer += (float)dt;
+                    if (shootingTimer > SHOOTING_TIME)
+                    {
+                        shootingTimer = 0.0f;
+                        shootState = ShootState.Waiting;
+                    }
+                    break;
+                case ShootState.OutsideMainPhase:
+
+                    break;
+            }
+
+
+
+
             if (mainPhaseDuration == -1f) return;
             if (mainPhaseCounter > mainPhaseDuration)
             {
@@ -136,11 +197,13 @@ namespace Tutorial_08
                     phase = EntityPhase.Main;
                     mainPhaseCounter = 0.0f;
                     velocity = Vector3.Zero;
+                    shootState = ShootState.Waiting;
                     break;
                 
                 case EntityPhase.Exit:
                     phase = EntityPhase.Exit;
                     targetPosition = GetPositionFromScreenSide(screenSideExit);
+                    shootState = ShootState.OutsideMainPhase;
                     break;
             }
         }

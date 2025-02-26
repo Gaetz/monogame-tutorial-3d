@@ -126,7 +126,7 @@ namespace Tutorial_06
             orientation = Quaternion.CreateFromRotationMatrix(aim);
         }
 
-        public void Update(double dt)
+        public override void Update(double dt)
         {
             HandlingInput(dt);
             HandleAiming();
