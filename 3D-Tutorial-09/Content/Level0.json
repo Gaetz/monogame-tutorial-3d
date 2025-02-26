@@ -1,0 +1,20 @@
+{
+  "id": 0,
+  "waves": [
+    {
+      "time": 0,
+      "id": 0,
+      "elements": [
+        {
+          "type": "enemy",
+          "screenSideEnter": "Left",
+          "screenSideExit": "Right",
+          "x": 0,
+          "y": 0,
+          "z": -750.0,
+          "mainPhaseDuration": 5.0
+        }
+      ],
+    }
+  ]
+}
