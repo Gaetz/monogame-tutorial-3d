@@ -4,46 +4,46 @@
     {
         public int id;
         public float time;
-        public int enemyNumber; 
+        public int elementNumber; 
 
-        public string enemy0Type;
-        public string enemy0EnterSide;
-        public string enemy0ExitSide;
-        public float enemy0X;
-        public float enemy0Y;
-        public float enemy0Z;
-        public float enemy0Duration;
+        public string element0Type;
+        public string element0EnterSide;
+        public string element0ExitSide;
+        public float element0X;
+        public float element0Y;
+        public float element0Z;
+        public float element0Duration;
 
-        public string enemy1Type;
-        public string enemy1EnterSide;
-        public string enemy1ExitSide;
-        public float enemy1X;
-        public float enemy1Y;
-        public float enemy1Z;
-        public float enemy1Duration;
+        public string element1Type;
+        public string element1EnterSide;
+        public string element1ExitSide;
+        public float element1X;
+        public float element1Y;
+        public float element1Z;
+        public float element1Duration;
 
-        public string enemy2Type;
-        public string enemy2EnterSide;
-        public string enemy2ExitSide;
-        public float enemy2X;
-        public float enemy2Y;
-        public float enemy2Z;
-        public float enemy2Duration;
+        public string element2Type;
+        public string element2EnterSide;
+        public string element2ExitSide;
+        public float element2X;
+        public float element2Y;
+        public float element2Z;
+        public float element2Duration;
 
-        public string enemy3Type;
-        public string enemy3EnterSide;
-        public string enemy3ExitSide;
-        public float enemy3X;
-        public float enemy3Y;
-        public float enemy3Z;
-        public float enemy3Duration;
+        public string element3Type;
+        public string element3EnterSide;
+        public string element3ExitSide;
+        public float element3X;
+        public float element3Y;
+        public float element3Z;
+        public float element3Duration;
 
-        public string enemy4Type;
-        public string enemy4EnterSide;
-        public string enemy4ExitSide;
-        public float enemy4X;
-        public float enemy4Y;
-        public float enemy4Z;
-        public float enemy4Duration;
+        public string element4Type;
+        public string element4EnterSide;
+        public string element4ExitSide;
+        public float element4X;
+        public float element4Y;
+        public float element4Z;
+        public float element4Duration;
     }
 }

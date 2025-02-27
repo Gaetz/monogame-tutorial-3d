@@ -64,11 +64,11 @@ namespace Tutorial_09
 
         public Enemy(Vector3 position, Game1 game, ScreenSide enterSide, ScreenSide exitSide, float mainPhaseDuration) : base()
         {
-            this.targetPosition = position;
             this.game = game;
-            this.screenSideEnter = enterSide;
-            this.screenSideExit = exitSide;
             this.mainPhaseDuration = mainPhaseDuration;
+            targetPosition = position;
+            screenSideEnter = enterSide;
+            screenSideExit = exitSide;
             scale = new Vector3(10f, 10f, 10f);
             ChangePhase(EntityPhase.Enter);
         }

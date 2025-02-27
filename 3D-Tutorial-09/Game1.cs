@@ -65,35 +65,35 @@ namespace Tutorial_09
             List<Wave> waves = new List<Wave>();
             foreach (Tutorial_Data.WaveData waveData in levelData)
             {
-                Wave wave = new Wave(waveData.time, waveData.id, waveData.enemyNumber);
-                for (int i = 0; i < waveData.enemyNumber; i++)
+                Wave wave = new Wave(waveData.time, waveData.id, waveData.elementNumber);
+                for (int i = 0; i < waveData.elementNumber; i++)
                 {
                     switch(i)
                     {
                         case 0:
-                            if (waveData.enemy0Type.Equals("none")) continue;
-                            wave.elements.Add(new WaveElement(waveData.enemy0Type, waveData.enemy0EnterSide, waveData.enemy0ExitSide,
-                                waveData.enemy0X, waveData.enemy0Y, waveData.enemy0Z, waveData.enemy0Duration));
+                            if (waveData.element0Type.Equals("none")) continue;
+                            wave.elements.Add(new WaveElement(waveData.element0Type, waveData.element0EnterSide, waveData.element0ExitSide,
+                                waveData.element0X, waveData.element0Y, waveData.element0Z, waveData.element0Duration));
                             break;
                         case 1:
-                            if (waveData.enemy1Type.Equals("none")) continue;
-                            wave.elements.Add(new WaveElement(waveData.enemy1Type, waveData.enemy1EnterSide, waveData.enemy1ExitSide,
-                                waveData.enemy1X, waveData.enemy1Y, waveData.enemy1Z, waveData.enemy1Duration));
+                            if (waveData.element1Type.Equals("none")) continue;
+                            wave.elements.Add(new WaveElement(waveData.element1Type, waveData.element1EnterSide, waveData.element1ExitSide,
+                                waveData.element1X, waveData.element1Y, waveData.element1Z, waveData.element1Duration));
                             break;
                         case 2:
-                            if (waveData.enemy2Type.Equals("none")) continue;
-                            wave.elements.Add(new WaveElement(waveData.enemy2Type, waveData.enemy2EnterSide, waveData.enemy2ExitSide,
-                                waveData.enemy2X, waveData.enemy2Y, waveData.enemy2Z, waveData.enemy2Duration));
+                            if (waveData.element2Type.Equals("none")) continue;
+                            wave.elements.Add(new WaveElement(waveData.element2Type, waveData.element2EnterSide, waveData.element2ExitSide,
+                                waveData.element2X, waveData.element2Y, waveData.element2Z, waveData.element2Duration));
                             break;
                         case 3:
-                            if (waveData.enemy3Type.Equals("none")) continue;
-                            wave.elements.Add(new WaveElement(waveData.enemy3Type, waveData.enemy3EnterSide, waveData.enemy3ExitSide,
-                                waveData.enemy3X, waveData.enemy3Y, waveData.enemy3Z, waveData.enemy3Duration));
+                            if (waveData.element3Type.Equals("none")) continue;
+                            wave.elements.Add(new WaveElement(waveData.element3Type, waveData.element3EnterSide, waveData.element3ExitSide,
+                                waveData.element3X, waveData.element3Y, waveData.element3Z, waveData.element3Duration));
                             break;
                         case 4:
-                            if (waveData.enemy4Type.Equals("none")) continue;
-                            wave.elements.Add(new WaveElement(waveData.enemy4Type, waveData.enemy4EnterSide, waveData.enemy4ExitSide,
-                                waveData.enemy4X, waveData.enemy4Y, waveData.enemy4Z, waveData.enemy4Duration));
+                            if (waveData.element4Type.Equals("none")) continue;
+                            wave.elements.Add(new WaveElement(waveData.element4Type, waveData.element4EnterSide, waveData.element4ExitSide,
+                                waveData.element4X, waveData.element4Y, waveData.element4Z, waveData.element4Duration));
                             break;
                     }
                 }
@@ -240,6 +240,13 @@ namespace Tutorial_09
             Enemy enemy = new Enemy(position, this, enterSide, exitSide, mainPhaseDuration);
             enemy.Load(Content, modelName);
             enemies.Add(enemy);
+        }
+
+        public void AddPowerUp(Vector3 position)
+        {
+            PowerUp powerUp = new PowerUp(position, 100f);
+            powerUp.Load(Content, "BeachBall");
+            powerUps.Add(powerUp);
         }
     }
 }

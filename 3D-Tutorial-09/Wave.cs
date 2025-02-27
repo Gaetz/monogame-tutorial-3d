@@ -11,14 +11,14 @@ namespace Tutorial_09
     {
         public float time;
         public int id;
-        public int enemyNumber;
+        public int elementNumber;
         public List<WaveElement> elements = new List<WaveElement>();
 
         public Wave(float time, int id, int enemyNumber)
         {
             this.time = time;
             this.id = id;
-            this.enemyNumber = enemyNumber;
+            this.elementNumber = enemyNumber;
         }
 
         public void Launch(Game1 game)
@@ -31,13 +31,7 @@ namespace Tutorial_09
                         game.AddEnemy(element.position, element.screenSideEnter, element.screenSideExit, element.mainPhaseDuration, "BeachBall");
                         break;
                     case "powerup":
-                        /*
-                        game.PowerUps.Add(new PowerUp(element.position, game));
-                        game.PowerUps.Last().Load(game.Content, "PowerUp");
-                        game.PowerUps.Last().ScreenSideEnter = element.screenSideEnter;
-                        game.PowerUps.Last().ScreenSideExit = element.screenSideExit;
-                        game.PowerUps.Last().MainPhaseDuration = element.mainPhaseDuration;
-                        */
+                        game.AddPowerUp(element.position);
                         break;
                 }
             }
