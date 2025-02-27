@@ -50,6 +50,14 @@ namespace Tutorial_04
             double dt = gameTime.ElapsedGameTime.TotalSeconds;
             playerAim.Update(dt);
             player.Update(dt);
+            
+            UpdateProjectiles(dt);
+
+            base.Update(gameTime);
+        }
+
+        private void UpdateProjectiles(double dt) 
+        {
             for (int i = projectiles.Count - 1; i >= 0; i--)
             {
                 projectiles[i].Update(dt);
@@ -59,8 +67,6 @@ namespace Tutorial_04
                     continue;
                 }
             }
-
-            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)

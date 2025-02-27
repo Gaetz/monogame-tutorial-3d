@@ -57,26 +57,28 @@ namespace Tutorial_05
             playerAim.Update(dt);
             player.Update(dt);
 
-            // Manage projectiles
+            UpdateProjectiles(dt);
+            UpdateEnemies(dt);
+
+            base.Update(gameTime);
+        }
+
+        private void UpdateProjectiles(double dt)
+        {
             for (int i = projectiles.Count - 1; i >= 0; i--)
             {
                 projectiles[i].Update(dt);
+                // Remove projectiles that are out of bounds
                 if (projectiles[i].Position.Z < -10000)
                 {
                     projectiles.RemoveAt(i);
                     continue;
                 }
-            }
-
-            // Manage enemies and projectile collisions
-            foreach (Enemy enemy in enemies)
-            {
-                enemy.Update(dt);
-
-                // Enemy collision with projectiles
-                for (int i = projectiles.Count - 1; i >= 0; i--)
+                // Collision with enemies
+                foreach (Enemy enemy in enemies)
                 {
-                    if (enemy.BoundingBox.Intersects(projectiles[i].BoundingBox))
+                    if (enemy.BoundingBox.Intersects(projectiles[i].BoundingBox)
+                        && projectiles[i].FromPlayer)
                     {
                         enemy.SetRandomPosition();
                         projectiles.RemoveAt(i);
@@ -84,8 +86,14 @@ namespace Tutorial_05
                     }
                 }
             }
-
-            base.Update(gameTime);
+        }
+        
+        private void UpdateEnemies(double dt)
+        {
+            for (int i = enemies.Count - 1; i >= 0; i--)
+            {
+                enemies[i].Update(dt);
+            }
         }
 
         protected override void Draw(GameTime gameTime)

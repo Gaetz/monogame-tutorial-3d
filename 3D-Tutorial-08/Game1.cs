@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace Tutorial_08
@@ -61,14 +62,24 @@ namespace Tutorial_08
                 Exit();
 
             double dt = gameTime.ElapsedGameTime.TotalSeconds;
+
             playerAim.Update(dt);
             player.Update(dt);
 
-            // Manage projectiles
+            UpdateProjectiles(dt);
+            UpdateEnemies(dt);
+            UpdatePowerUps(dt);
+
+            base.Update(gameTime);
+        }
+
+        private void UpdateProjectiles(double dt)
+        {
             for (int i = projectiles.Count - 1; i >= 0; i--)
             {
                 projectiles[i].Update(dt);
-                if (projectiles[i].Position.Z < -10000 && projectiles[i].Position.Z > 1000)
+                // Remove projectiles that are out of bounds
+                if (projectiles[i].Position.Z < -10000 || projectiles[i].Position.Z > 1000)
                 {
                     projectiles.RemoveAt(i);
                     continue;
@@ -81,15 +92,8 @@ namespace Tutorial_08
                     projectiles.RemoveAt(i);
                     continue;
                 }
-            }
-
-            // Manage enemies and projectile collisions
-            foreach (Enemy enemy in enemies)
-            {
-                enemy.Update(dt);
-
-                // Enemy collision with projectiles
-                for (int i = projectiles.Count - 1; i >= 0; i--)
+                // Collision with enemies
+                foreach (Enemy enemy in enemies)
                 {
                     if (enemy.BoundingBox.Intersects(projectiles[i].BoundingBox)
                         && projectiles[i].FromPlayer)
@@ -100,17 +104,23 @@ namespace Tutorial_08
                     }
                 }
             }
+        }
 
-            // Remove dead enemies
+        private void UpdateEnemies(double dt)
+        {
             for (int i = enemies.Count - 1; i >= 0; i--)
             {
+                enemies[i].Update(dt);
+                // Remove dead enemies
                 if (enemies[i].IsDead)
                 {
                     enemies.RemoveAt(i);
                 }
             }
+        }
 
-            // Power up collisions
+        private void UpdatePowerUps(double dt)
+        {
             for (int i = powerUps.Count - 1; i >= 0; i--)
             {
                 powerUps[i].Update(dt);
@@ -126,8 +136,6 @@ namespace Tutorial_08
                     break;
                 }
             }
-
-            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -160,8 +168,9 @@ namespace Tutorial_08
 
         public void AddProjectile(Vector3 position, Quaternion orientation, float speed, bool fromPlayer = true)
         {
+            string modelName = fromPlayer ? "Cube" : "CubeRed";
             var newProjectile = new Projectile(position, orientation, speed, fromPlayer);
-            newProjectile.Load(Content, "Cube");
+            newProjectile.Load(Content, modelName);
             projectiles.Add(newProjectile);
         }
 

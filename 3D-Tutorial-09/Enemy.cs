@@ -62,11 +62,13 @@ namespace Tutorial_09
             get { return isDead; }
         }
 
-        public Enemy(Vector3 position, Game1 game) : base()
+        public Enemy(Vector3 position, Game1 game, ScreenSide enterSide, ScreenSide exitSide, float mainPhaseDuration) : base()
         {
             this.targetPosition = position;
             this.game = game;
-            mainPhaseDuration = 5.0f;
+            this.screenSideEnter = enterSide;
+            this.screenSideExit = exitSide;
+            this.mainPhaseDuration = mainPhaseDuration;
             scale = new Vector3(10f, 10f, 10f);
             ChangePhase(EntityPhase.Enter);
         }
@@ -163,9 +165,6 @@ namespace Tutorial_09
 
                     break;
             }
-
-
-
 
             if (mainPhaseDuration == -1f) return;
             if (mainPhaseCounter > mainPhaseDuration)

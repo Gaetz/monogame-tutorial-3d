@@ -61,33 +61,8 @@ namespace Tutorial_06
             playerAim.Update(dt);
             player.Update(dt);
 
-            // Manage projectiles
-            foreach (Projectile projectile in projectiles)
-            {
-                projectile.Update(dt);
-                if (projectile.Position.Z < -10000)
-                {
-                    projectiles.Remove(projectile);
-                    break;
-                }
-            }
-
-            // Manage enemies and projectile collisions
-            foreach (Enemy enemy in enemies)
-            {
-                enemy.Update(dt);
-
-                // Enemy collision with projectiles
-                for (int i = projectiles.Count - 1; i >= 0; i--)
-                {
-                    if (enemy.BoundingBox.Intersects(projectiles[i].BoundingBox))
-                    {
-                        enemy.SetRandomPosition();
-                        projectiles.RemoveAt(i);
-                        break;
-                    }
-                }
-            }
+            UpdateProjectiles(dt);
+            UpdateEnemies(dt);
 
             // Power up test
             powerUpTimer -= (float)dt;
@@ -98,6 +73,46 @@ namespace Tutorial_06
                 powerUps[powerUps.Count - 1].SetRandomPosition();
                 powerUpTimer = POWER_UP_TIME;
             }
+            UpdatePowerUps(dt);
+
+            base.Update(gameTime);
+        }
+
+        private void UpdateProjectiles(double dt)
+        {
+            for (int i = projectiles.Count - 1; i >= 0; i--)
+            {
+                projectiles[i].Update(dt);
+                // Remove projectiles that are out of bounds
+                if (projectiles[i].Position.Z < -10000)
+                {
+                    projectiles.RemoveAt(i);
+                    continue;
+                }
+                // Collision with enemies
+                foreach (Enemy enemy in enemies)
+                {
+                    if (enemy.BoundingBox.Intersects(projectiles[i].BoundingBox)
+                        && projectiles[i].FromPlayer)
+                    {
+                        enemy.SetRandomPosition();
+                        projectiles.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void UpdateEnemies(double dt)
+        {
+            for (int i = enemies.Count - 1; i >= 0; i--)
+            {
+                enemies[i].Update(dt);
+            }
+        }
+
+        private void UpdatePowerUps(double dt)
+        {
             for (int i = powerUps.Count - 1; i >= 0; i--)
             {
                 powerUps[i].Update(dt);
@@ -112,10 +127,7 @@ namespace Tutorial_06
                     powerUps.RemoveAt(i);
                     break;
                 }
-
             }
-
-            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)

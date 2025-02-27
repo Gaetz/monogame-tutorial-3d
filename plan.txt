@@ -1,7 +1,7 @@
 Step 1 : Load and display the 3D Ship on screen with the content manager
 Step 2 : Move the ship, using vector 3 and inputs
 Step 3 : Aim and rotate the ship, using matrices / transform
-Step 4 : Shoot and make projectiles collide
+Step 4 : Shoot projectiles
 Step 5 : Make projectiles collide
 Step 6 : Get a power up, a parametrable shooting system
 Step 7 : A moving enemy
