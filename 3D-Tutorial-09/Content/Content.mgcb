@@ -10,6 +10,7 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\..\3D-Tutorial-Data\bin\Debug\net6.0\3D-Tutorial-Data.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -94,10 +95,10 @@
 /processorParam:TextureFormat=Compressed
 /build:CubeRed.fbx
 
-#begin Level0.json
-/importer:WavesImporter
-/processor:WavesProcessor
-/build:Level0.json
+#begin Level0.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Level0.xml
 
 #begin Ship.fbx
 /importer:FbxImporter

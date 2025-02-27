@@ -19,8 +19,13 @@ namespace Tutorial_09
         private List<Enemy> enemies = new List<Enemy>();
         private List<PowerUp> powerUps = new List<PowerUp>();
 
-        const float POWER_UP_TIME = 5.0f;
-        float powerUpTimer = 1;
+        private const float POWER_UP_TIME = 5.0f;
+        private float powerUpTimer = 1;
+
+        private Tutorial_Data.WaveData[] levelData;
+        private List<Wave> waves = new List<Wave>();
+        private int currentWave = 0;
+        private float waveTimer = 0.0f;
 
         internal Player Player
         {
@@ -53,6 +58,8 @@ namespace Tutorial_09
 
             enemies.Add(new Enemy(new Vector3(0, 0, -500), this));
             enemies[0].Load(Content, "BeachBall");
+
+            levelData = Content.Load<Tutorial_Data.WaveData[]>("Level0.xml");
         }
 
         protected override void Update(GameTime gameTime)
@@ -61,20 +68,8 @@ namespace Tutorial_09
                 Exit();
 
             double dt = gameTime.ElapsedGameTime.TotalSeconds;
-            if (dt > 0.1) dt = 0.1;
-
             playerAim.Update(dt);
             player.Update(dt);
-
-
-            for (int i = projectiles.Count - 1; i >= 0; i--)
-            {
-                projectiles[i].Update(dt);
-                if (projectiles[i].Position.Z < -10000)
-                {
-                    projectiles.RemoveAt(i);
-                }
-            }
 
             // Manage projectiles
             for (int i = projectiles.Count - 1; i >= 0; i--)

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+	<Asset Type="Tutorial_Data.WaveData[]">
+		<Item>
+			<id>0</id>
+			<time>0</time>
+			<enemyNumber>3</enemyNumber>
+			
+			<enemy0Type>enemy</enemy0Type>
+			<enemy0EnterSide>Left</enemy0EnterSide>
+			<enemy0ExitSide>Right</enemy0ExitSide>
+			<enemy0X>-200</enemy0X>
+			<enemy0Y>0</enemy0Y>
+			<enemy0Z>-750</enemy0Z>
+			<enemy0Duration>5.0</enemy0Duration>
+
+			<enemy1Type>enemy</enemy1Type>
+			<enemy1EnterSide>Left</enemy1EnterSide>
+			<enemy1ExitSide>Right</enemy1ExitSide>
+			<enemy1X>200</enemy1X>
+			<enemy1Y>0</enemy1Y>
+			<enemy1Z>-750</enemy1Z>
+			<enemy1Duration>5.0</enemy1Duration>
+
+			<enemy2Type>enemy</enemy2Type>
+			<enemy2EnterSide>Left</enemy2EnterSide>
+			<enemy2ExitSide>Right</enemy2ExitSide>
+			<enemy2X>0</enemy2X>
+			<enemy2Y>0</enemy2Y>
+			<enemy2Z>-750</enemy2Z>
+			<enemy2Duration>5.0</enemy2Duration>
+
+			<enemy3Type>none</enemy3Type>
+			<enemy3EnterSide>Left</enemy3EnterSide>
+			<enemy3ExitSide>Right</enemy3ExitSide>
+			<enemy3X>0</enemy3X>
+			<enemy3Y>0</enemy3Y>
+			<enemy3Z>0</enemy3Z>
+			<enemy3Duration>5.0</enemy3Duration>
+
+			<enemy4Type>none</enemy4Type>
+			<enemy4EnterSide>Left</enemy4EnterSide>
+			<enemy4ExitSide>Right</enemy4ExitSide>
+			<enemy4X>0</enemy4X>
+			<enemy4Y>0</enemy4Y>
+			<enemy4Z>0</enemy4Z>
+			<enemy4Duration>5.0</enemy4Duration>
+		</Item>
+	</Asset>
+</XnaContent>

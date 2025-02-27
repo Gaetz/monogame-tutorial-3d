@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using Tutorial_Pipeline;
 
 namespace Tutorial_09
 {
@@ -11,7 +10,17 @@ namespace Tutorial_09
         Exit
     }
 
-    enum ShootState 
+    public enum ScreenSide
+    {
+        Top,
+        Bottom,
+        Left,
+        Right,
+        Horizon,
+        Back
+    }
+
+    public enum ShootState 
     {
         Waiting,
         Shooting,

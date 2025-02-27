@@ -61,20 +61,8 @@ namespace Tutorial_08
                 Exit();
 
             double dt = gameTime.ElapsedGameTime.TotalSeconds;
-            if (dt > 0.1) dt = 0.1;
-
             playerAim.Update(dt);
             player.Update(dt);
-
-
-            for (int i = projectiles.Count - 1; i >= 0; i--)
-            {
-                projectiles[i].Update(dt);
-                if (projectiles[i].Position.Z < -10000)
-                {
-                    projectiles.RemoveAt(i);
-                }
-            }
 
             // Manage projectiles
             for (int i = projectiles.Count - 1; i >= 0; i--)
