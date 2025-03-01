@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 
-
-namespace Tutorial_09
+namespace Tutorial_10
 {
     public class Wave
     {
