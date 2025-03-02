@@ -59,7 +59,7 @@ namespace Tutorial_10
 
         public bool IsDead
         {
-            get { return isDead; }
+            get { return isDead || hp <= 0; }
         }
 
         public Enemy(Vector3 position, Game1 game, ScreenSide enterSide, ScreenSide exitSide, float mainPhaseDuration) : base()
