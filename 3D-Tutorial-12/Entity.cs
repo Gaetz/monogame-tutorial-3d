@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using System.Net;
 
 namespace Tutorial_11
 {
@@ -12,10 +13,10 @@ namespace Tutorial_11
         protected Vector3 scale;
         protected Matrix world;
 
-        private float flashTimer = 0.0f;
-        private float flashDuration = 0.5f;
-        private Color currentFlashColor = Color.White;
-        private Color flashColor = Color.Red;
+        protected float flashTimer = 0.0f;
+        protected float flashDuration = 0.5f;
+        protected Color currentFlashColor = Color.White;
+        protected Color flashColor = Color.Red;
 
         public Vector3 Position
         {
@@ -51,7 +52,7 @@ namespace Tutorial_11
                     effect.View = view;
                     effect.Projection = projection;
                 }
-
+                
                 mesh.Draw();
             }
         }
@@ -66,7 +67,6 @@ namespace Tutorial_11
                 {
                     currentFlashColor = Color.White;
                 }
-                SetDiffuseColor(currentFlashColor);
             }
         }
 
@@ -75,11 +75,6 @@ namespace Tutorial_11
             flashColor = color;
             flashTimer = duration;
             flashDuration = duration;
-        }
-
-        protected virtual void SetDiffuseColor(Color color)
-        {
-
         }
     }
 }

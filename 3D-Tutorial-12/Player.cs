@@ -182,15 +182,16 @@ namespace Tutorial_11
             }
         }
 
-        protected override void SetDiffuseColor(Color color)
+        public override void Draw(Matrix view, Matrix projection)
         {
             foreach (ModelMesh mesh in model.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
-                    effect.DiffuseColor = color.ToVector3();
+                    effect.DiffuseColor = currentFlashColor.ToVector3();
                 }
             }
+            base.Draw(view, projection);
         }
     }
 }
