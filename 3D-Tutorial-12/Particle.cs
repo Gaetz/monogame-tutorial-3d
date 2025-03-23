@@ -7,7 +7,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tutorial_11
+namespace Tutorial_12
 {
     internal class Particle : Entity
     {

@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace Tutorial_11
+namespace Tutorial_12
 {
     public enum EntityPhase
     {

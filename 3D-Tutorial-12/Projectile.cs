@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
-namespace Tutorial_11
+namespace Tutorial_12
 {
     internal class Projectile : Entity
     {
