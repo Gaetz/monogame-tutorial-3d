@@ -141,7 +141,7 @@ namespace Tutorial_12
         public void PowerUp()
         {
             projectileNumber++;
-            Flash(Color.LightGreen, 2.0f);
+            Flash(new Color(0, 255, 0), 2.0f);
         }
 
         private void CreateProjectiles()
