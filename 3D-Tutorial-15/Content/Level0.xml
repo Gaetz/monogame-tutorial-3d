@@ -5,8 +5,6 @@
 			<id>0</id>
 			<time>0</time>
 			<elementNumber>3</elementNumber>
-			<message>none</message>
-			<messagePortrait>none</messagePortrait>
 
 			<element0Type>enemy</element0Type>
 			<element0EnterSide>Left</element0EnterSide>
