@@ -4,7 +4,7 @@
     {
         public int id;
         public float time;
-        public int elementNumber; 
+        public int elementNumber;
 
         public string element0Type;
         public string element0EnterSide;
