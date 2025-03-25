@@ -18,17 +18,17 @@ namespace Tutorial_15
         private bool isVisible = false;
         private SpriteFont font;
         private float displayTimer = 0.0f;
+        float displayDuration = 3.0f;
 
         private Texture2D dialogBoxTexture;
         private Texture2D pilotTexture;
         private Texture2D robotTexture;
+        private Texture2D portraitTexture;
 
         const int DIALOG_BOX_X = 20;
         const int DIALOG_BOX_Y = 332;
         const int PORTRAIT_SIZE = 128;
         const int TEXT_START_X = DIALOG_BOX_X + PORTRAIT_SIZE + 50;
-        const float DISPLAY_TIME = 3.0f;
-
 
         public void Load(ContentManager content)
         {
@@ -38,11 +38,25 @@ namespace Tutorial_15
             font = content.Load<SpriteFont>("Arial");
         }
 
-        public void DisplayMessage(string message, DisplayedCharacter character = DisplayedCharacter.None)
+        public void DisplayMessage(string message, DisplayedCharacter character = DisplayedCharacter.None, float duration = 3f)
         {
             this.message = message;
             currentCharacter = character;
+            displayDuration = duration;
             isVisible = true;
+            switch(character)
+            {
+                case DisplayedCharacter.Pilot:
+                    portraitTexture = pilotTexture;
+                    break;
+                case DisplayedCharacter.Robot:
+                    portraitTexture = robotTexture;
+                    break;
+                default:
+                    portraitTexture = null;
+                    break;
+            }
+
         }
 
         public void Update(double dt)
@@ -52,7 +66,7 @@ namespace Tutorial_15
                 return;
             }
             displayTimer += (float)dt;
-            if (displayTimer > DISPLAY_TIME)
+            if (displayTimer > displayDuration)
             {
                 isVisible = false;
                 displayTimer = 0.0f;
@@ -61,35 +75,24 @@ namespace Tutorial_15
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (isVisible)
+            if (!isVisible)
             {
-                DrawDialogBox(spriteBatch);
-                DrawCharacter(spriteBatch);
-                DrawMessage(spriteBatch);
+                return;
             }
+            DrawDialogBox(spriteBatch);
+            DrawCharacter(spriteBatch);
+            DrawMessage(spriteBatch);
         }
 
         private void DrawDialogBox(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(dialogBoxTexture, new Vector2(DIALOG_BOX_X, DIALOG_BOX_Y), Color.White);
+            Color transparentColor = new Color(255, 255, 255, 150);
+            spriteBatch.Draw(dialogBoxTexture, new Vector2(DIALOG_BOX_X, DIALOG_BOX_Y), transparentColor);
         }
 
         private void DrawCharacter(SpriteBatch spriteBatch)
         {
-            Texture2D texture = null;
-            switch (currentCharacter)
-            {
-                case DisplayedCharacter.Pilot:
-                    texture = pilotTexture;
-                    break;
-                case DisplayedCharacter.Robot:
-                    texture = robotTexture;
-                    break;
-            }
-            if (texture != null)
-            {
-                spriteBatch.Draw(texture, new Vector2(DIALOG_BOX_X, DIALOG_BOX_Y), Color.White);
-            }
+            spriteBatch.Draw(portraitTexture, new Vector2(DIALOG_BOX_X, DIALOG_BOX_Y), Color.White);
         }
 
         private void DrawMessage(SpriteBatch spriteBatch)

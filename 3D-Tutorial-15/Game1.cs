@@ -294,9 +294,11 @@ namespace Tutorial_15
                 particles.Draw(view, projection);
             }
 
+            
             _spriteBatch.Begin();
             dialogBox.Draw(_spriteBatch);
             _spriteBatch.End();
+            
 
             base.Draw(gameTime);
         }
