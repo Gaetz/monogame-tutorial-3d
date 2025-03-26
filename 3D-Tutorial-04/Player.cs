@@ -35,9 +35,8 @@ namespace Tutorial_04
 
         private void HandlingInput(double dt)
         {
-            // Controls
             KeyboardState state = Keyboard.GetState();
-            if (state.IsKeyDown(Keys.W))
+            if (state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.Z))
             {
                 speedY += ACCELERATION_RATE * (float)dt;
             }
@@ -50,8 +49,7 @@ namespace Tutorial_04
                 speedY = MathF.Sign(speedY) * MAX_SPEED;
             }
 
-
-            if (state.IsKeyDown(Keys.A))
+            if (state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.Q))
             {
                 speedX -= ACCELERATION_RATE * (float)dt;
             }
