@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Tutorial_15
 {
-    enum DisplayedCharacter
+    public enum DisplayedCharacter
     {
         None,
         Pilot,
@@ -14,7 +16,6 @@ namespace Tutorial_15
     internal class DialogBox
     {
         private string message = "";
-        private DisplayedCharacter currentCharacter = DisplayedCharacter.None;
         private bool isVisible = false;
         private SpriteFont font;
         private float displayTimer = 0.0f;
@@ -29,6 +30,9 @@ namespace Tutorial_15
         const int DIALOG_BOX_Y = 332;
         const int PORTRAIT_SIZE = 128;
         const int TEXT_START_X = DIALOG_BOX_X + PORTRAIT_SIZE + 50;
+        const int MAX_LINE_CHARACTERS = 70;
+        const int LINE_SEPARATION = 30;
+
 
         public void Load(ContentManager content)
         {
@@ -38,10 +42,9 @@ namespace Tutorial_15
             font = content.Load<SpriteFont>("Arial");
         }
 
-        public void DisplayMessage(string message, DisplayedCharacter character = DisplayedCharacter.None, float duration = 3f)
+        public void DisplayMessage(string message, DisplayedCharacter character, float duration)
         {
             this.message = message;
-            currentCharacter = character;
             displayDuration = duration;
             isVisible = true;
             switch(character)
@@ -97,7 +100,30 @@ namespace Tutorial_15
 
         private void DrawMessage(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, message, new Vector2(TEXT_START_X, DIALOG_BOX_Y + 20), Color.White);
+            // Divide the message in lines
+            string[] words = message.Split(' ');
+            List<string> lines = new List<string>();
+            StringBuilder line = new StringBuilder();
+            foreach (string word in words)
+            {
+                if (line.Length + word.Length < MAX_LINE_CHARACTERS)
+                {
+                    line.Append(word + " ");
+                }
+                else
+                {
+                    lines.Add(line.ToString());
+                    line.Clear();
+                    line.Append(word + " ");
+                }
+            }
+            // The last line is added
+            lines.Add(line.ToString());
+            // Display each line
+            for (int i = 0; i < lines.Count; i++)
+            {
+                spriteBatch.DrawString(font, lines[i], new Vector2(TEXT_START_X, DIALOG_BOX_Y + 20 + i * LINE_SEPARATION), Color.White);
+            }
         }
     }
 }

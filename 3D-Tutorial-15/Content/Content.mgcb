@@ -143,6 +143,11 @@
 /processor:PassThroughProcessor
 /build:Level0.xml
 
+#begin Level0Messages.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Level0Messages.xml
+
 #begin PickupBonus.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

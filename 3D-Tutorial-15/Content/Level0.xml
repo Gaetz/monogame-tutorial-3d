@@ -3,7 +3,7 @@
 	<Asset Type="Tutorial_Data.WaveData[]">
 		<Item>
 			<id>0</id>
-			<time>0</time>
+			<time>12</time>
 			<elementNumber>3</elementNumber>
 
 			<element0Type>enemy</element0Type>
@@ -49,7 +49,7 @@
 		
 		<Item>
 			<id>1</id>
-			<time>12</time>
+			<time>24</time>
 			<elementNumber>1</elementNumber>
 
 			<element0Type>powerup</element0Type>
@@ -95,7 +95,7 @@
 		
 		<Item>
 			<id>2</id>
-			<time>15</time>
+			<time>27</time>
 			<elementNumber>3</elementNumber>
 
 			<element0Type>enemy</element0Type>

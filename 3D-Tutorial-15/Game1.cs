@@ -39,6 +39,10 @@ namespace Tutorial_15
         private ShiftingTexture sky;
 
         private DialogBox dialogBox;
+        private Tutorial_Data.MessageData[] levelMessagesData;
+        private List<Message> messages = new List<Message>();
+        private int currentMessage = 0;
+        private float messageTimer = 0f;
 
         internal Player Player
         {
@@ -91,7 +95,8 @@ namespace Tutorial_15
 
             dialogBox = new DialogBox();
             dialogBox.Load(Content);
-            dialogBox.DisplayMessage("Welcome to the game!", DisplayedCharacter.Pilot);
+            levelMessagesData = Content.Load<Tutorial_Data.MessageData[]>("Level0Messages");
+            messages = LoadMessages(levelMessagesData);
         }
 
         List<Wave> LoadWaves(Tutorial_Data.WaveData[] levelData)
@@ -136,6 +141,15 @@ namespace Tutorial_15
             return waves;
         }
 
+        private List<Message> LoadMessages(Tutorial_Data.MessageData[] levelMessagesData)
+        {
+            foreach (Tutorial_Data.MessageData messageData in levelMessagesData)
+            {
+                messages.Add(new Message(messageData.id, messageData.time, messageData.duration, messageData.message, messageData.portrait));
+            }
+            return messages;
+        }
+
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -150,6 +164,7 @@ namespace Tutorial_15
             UpdatePowerUps(dt);
             UpdateWaves(dt);
             UpdateParticleSystems(dt);
+            UpdateMessages(dt);
 
             ground.Update(dt);
             sky.Update(dt);
@@ -261,6 +276,16 @@ namespace Tutorial_15
             }
         }
 
+        private void UpdateMessages(double dt)
+        {
+            messageTimer += (float)dt;
+            if (currentMessage < messages.Count && messageTimer >= messages[currentMessage].time)
+            {
+                messages[currentMessage].Launch(this);
+                currentMessage++;
+            }
+        }
+
         protected override void Draw(GameTime gameTime)
         {
             Color bgColor = new Color(30, 0, 50);
@@ -329,6 +354,11 @@ namespace Tutorial_15
             PowerUp powerUp = new PowerUp(position, 100f);
             powerUp.Load(Content, "BeachBall");
             powerUps.Add(powerUp);
+        }
+
+        public void DisplayMessage(string message, DisplayedCharacter character, float duration)
+        {
+            dialogBox.DisplayMessage(message, character, duration);
         }
     }
 }
