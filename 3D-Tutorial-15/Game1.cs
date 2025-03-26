@@ -293,12 +293,13 @@ namespace Tutorial_15
             {
                 particles.Draw(view, projection);
             }
-
             
             _spriteBatch.Begin();
             dialogBox.Draw(_spriteBatch);
             _spriteBatch.End();
-            
+
+            GraphicsDevice.SamplerStates[0] = SamplerState.LinearWrap;
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
             base.Draw(gameTime);
         }
