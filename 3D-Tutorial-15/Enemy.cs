@@ -49,6 +49,7 @@ namespace Tutorial_15
         private ShootState shootState = ShootState.OutsideMainPhase;
         private const float SHOOTING_TIME = 2.0f;
         private const float SHOOTING_INTERVAL = 0.5f;
+        private const float SHOOTING_COOLDOWN = 3.0f;
         private int PROJECTILE_NUMBER = 3;
         private float shootingTimer = 0.0f;
         private int projectileCount = 0;
@@ -156,10 +157,11 @@ namespace Tutorial_15
                     break;
                 case ShootState.Cooldown:
                     shootingTimer += (float)dt;
-                    if (shootingTimer > SHOOTING_TIME)
+                    if (shootingTimer > SHOOTING_COOLDOWN)
                     {
                         shootingTimer = 0.0f;
-                        shootState = ShootState.Waiting;
+                        shootState = ShootState.Shooting;
+                        projectileCount = 0;
                     }
                     break;
                 case ShootState.OutsideMainPhase:

@@ -3,7 +3,7 @@ using System;
 
 namespace Tutorial_08
 {
-    enum EntityPhase
+    enum Phase
     {
         Enter,
         Main,
@@ -36,7 +36,7 @@ namespace Tutorial_08
         private Vector3 targetPosition = Vector3.Zero;
         private Vector3 velocity = Vector3.Zero;
         private float speed = 300.0f;
-        private EntityPhase phase = EntityPhase.Enter;
+        private Phase phase = Phase.Enter;
         private ScreenSide screenSideEnter = ScreenSide.Back;
         private ScreenSide screenSideExit = ScreenSide.Horizon;
         private float mainPhaseDuration = -1.0f;
@@ -47,6 +47,7 @@ namespace Tutorial_08
         private Game1 game;
         private ShootState shootState = ShootState.OutsideMainPhase;
         private const float SHOOTING_TIME = 2.0f;
+        private const float SHOOTING_COOLDOWN = 3.0f;
         private const float SHOOTING_INTERVAL = 0.5f;
         private int PROJECTILE_NUMBER = 3;
         private float shootingTimer = 0.0f;
@@ -68,7 +69,7 @@ namespace Tutorial_08
             this.game = game;
             mainPhaseDuration = 5.0f;
             scale = new Vector3(10f, 10f, 10f);
-            ChangePhase(EntityPhase.Enter);
+            ChangePhase(Phase.Enter);
         }
 
         private BoundingBox CreateBoundingBox()
@@ -84,13 +85,13 @@ namespace Tutorial_08
         {
             switch(phase)
             {
-                case EntityPhase.Enter:
+                case Phase.Enter:
                     UpdateEnterPhase(dt);
                     break;
-                case EntityPhase.Main:
+                case Phase.Main:
                     UpdateMainPhase(dt);
                     break;
-                case EntityPhase.Exit:
+                case Phase.Exit:
                     UpdateExitPhase(dt);
                     break;
             }
@@ -116,7 +117,7 @@ namespace Tutorial_08
             MoveToTargetPosition(dt);
             if (Vector3.Distance(position, targetPosition) < 5.0f)
             {
-                ChangePhase(EntityPhase.Main);
+                ChangePhase(Phase.Main);
             }
         }
 
@@ -153,10 +154,11 @@ namespace Tutorial_08
                     break;
                 case ShootState.Cooldown:
                     shootingTimer += (float)dt;
-                    if (shootingTimer > SHOOTING_TIME)
+                    if (shootingTimer > SHOOTING_COOLDOWN)
                     {
                         shootingTimer = 0.0f;
-                        shootState = ShootState.Waiting;
+                        shootState = ShootState.Shooting;
+                        projectileCount = 0;
                     }
                     break;
                 case ShootState.OutsideMainPhase:
@@ -170,7 +172,7 @@ namespace Tutorial_08
             if (mainPhaseDuration == -1f) return;
             if (mainPhaseCounter > mainPhaseDuration)
             {
-                ChangePhase(EntityPhase.Exit);
+                ChangePhase(Phase.Exit);
             }
         }
 
@@ -183,25 +185,25 @@ namespace Tutorial_08
             }
         }
 
-        private void ChangePhase(EntityPhase newPhase)
+        private void ChangePhase(Phase newPhase)
         {
             phase = newPhase;
             switch (phase)
             {
-                case EntityPhase.Enter:
-                    phase = EntityPhase.Enter;
+                case Phase.Enter:
+                    phase = Phase.Enter;
                     position = GetPositionFromScreenSide(screenSideEnter);
                     break;
                 
-                case EntityPhase.Main:
-                    phase = EntityPhase.Main;
+                case Phase.Main:
+                    phase = Phase.Main;
                     mainPhaseCounter = 0.0f;
                     velocity = Vector3.Zero;
                     shootState = ShootState.Waiting;
                     break;
                 
-                case EntityPhase.Exit:
-                    phase = EntityPhase.Exit;
+                case Phase.Exit:
+                    phase = Phase.Exit;
                     targetPosition = GetPositionFromScreenSide(screenSideExit);
                     shootState = ShootState.OutsideMainPhase;
                     break;

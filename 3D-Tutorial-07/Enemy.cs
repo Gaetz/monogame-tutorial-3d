@@ -3,7 +3,7 @@ using System;
 
 namespace Tutorial_07
 {
-    enum EntityPhase
+    enum Phase
     {
         Enter,
         Main,
@@ -28,9 +28,9 @@ namespace Tutorial_07
         private Vector3 targetPosition = Vector3.Zero;
         private Vector3 velocity = Vector3.Zero;
         private float speed = 300.0f;
-        private EntityPhase phase = EntityPhase.Enter;
-        private ScreenSide screenSideEnter = ScreenSide.Back;
-        private ScreenSide screenSideExit = ScreenSide.Horizon;
+        private Phase phase = Phase.Enter;
+        private ScreenSide screenSideEnter = ScreenSide.Left;
+        private ScreenSide screenSideExit = ScreenSide.Right;
         private float mainPhaseDuration = -1.0f;
         private float mainPhaseCounter = 5.0f;
         private int hp = 5;
@@ -51,7 +51,7 @@ namespace Tutorial_07
             this.targetPosition = position;
             mainPhaseDuration = 5.0f;
             scale = new Vector3(10f, 10f, 10f);
-            ChangePhase(EntityPhase.Enter);
+            ChangePhase(Phase.Enter);
         }
 
         private BoundingBox CreateBoundingBox()
@@ -67,13 +67,13 @@ namespace Tutorial_07
         {
             switch(phase)
             {
-                case EntityPhase.Enter:
+                case Phase.Enter:
                     UpdateEnterPhase(dt);
                     break;
-                case EntityPhase.Main:
+                case Phase.Main:
                     UpdateMainPhase(dt);
                     break;
-                case EntityPhase.Exit:
+                case Phase.Exit:
                     UpdateExitPhase(dt);
                     break;
             }
@@ -99,7 +99,7 @@ namespace Tutorial_07
             MoveToTargetPosition(dt);
             if (Vector3.Distance(position, targetPosition) < 5.0f)
             {
-                ChangePhase(EntityPhase.Main);
+                ChangePhase(Phase.Main);
             }
         }
 
@@ -109,7 +109,7 @@ namespace Tutorial_07
             if (mainPhaseDuration == -1f) return;
             if (mainPhaseCounter > mainPhaseDuration)
             {
-                ChangePhase(EntityPhase.Exit);
+                ChangePhase(Phase.Exit);
             }
         }
 
@@ -122,24 +122,24 @@ namespace Tutorial_07
             }
         }
 
-        private void ChangePhase(EntityPhase newPhase)
+        private void ChangePhase(Phase newPhase)
         {
             phase = newPhase;
             switch (phase)
             {
-                case EntityPhase.Enter:
-                    phase = EntityPhase.Enter;
+                case Phase.Enter:
+                    phase = Phase.Enter;
                     position = GetPositionFromScreenSide(screenSideEnter);
                     break;
                 
-                case EntityPhase.Main:
-                    phase = EntityPhase.Main;
+                case Phase.Main:
+                    phase = Phase.Main;
                     mainPhaseCounter = 0.0f;
                     velocity = Vector3.Zero;
                     break;
                 
-                case EntityPhase.Exit:
-                    phase = EntityPhase.Exit;
+                case Phase.Exit:
+                    phase = Phase.Exit;
                     targetPosition = GetPositionFromScreenSide(screenSideExit);
                     break;
             }
