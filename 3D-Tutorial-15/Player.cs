@@ -31,7 +31,7 @@ namespace Tutorial_15
         private SoundEffect shootSound;
 
         private Entity laserAim;
-        float laserAimDefaultSqLength = 0;
+        float laserAimDefaultLength = 0;
 
         public BoundingBox BoundingBox
         {
@@ -51,7 +51,7 @@ namespace Tutorial_15
             shootSound = content.Load<SoundEffect>("Laser0");
             laserAim = new Entity();
             laserAim.Load(content, "Cube");
-            laserAimDefaultSqLength = (playerAim.Position - position).Length();
+            laserAimDefaultLength = (playerAim.Position - position).Length();
         }
 
         private void HandlingInput(double dt)
@@ -122,7 +122,7 @@ namespace Tutorial_15
         {
             laserAim.Position = (playerAim.Position - position) / 2f + position;
             laserAim.Orientation = orientation;
-            laserAim.Scale = new Vector3(1f, 1f, 2400f * direction.Length() / laserAimDefaultSqLength);
+            laserAim.Scale = new Vector3(1f, 1f, 2400f * direction.Length() / laserAimDefaultLength);
         }
 
         public override void Update(double dt)
