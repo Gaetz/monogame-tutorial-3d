@@ -3,14 +3,14 @@ using System;
 
 namespace Tutorial_08
 {
-    enum Phase
+    public enum Phase
     {
         Enter,
         Main,
         Exit
     }
 
-    enum ScreenSide
+    public enum ScreenSide
     {
         Top,
         Bottom,
@@ -20,7 +20,7 @@ namespace Tutorial_08
         Back
     }
 
-    enum ShootState 
+    public enum ShootState 
     {
         Waiting,
         Shooting,
@@ -165,9 +165,6 @@ namespace Tutorial_08
 
                     break;
             }
-
-
-
 
             if (mainPhaseDuration == -1f) return;
             if (mainPhaseCounter > mainPhaseDuration)

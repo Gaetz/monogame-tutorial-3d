@@ -73,6 +73,7 @@ namespace Tutorial_10
                 speedX = MathF.Sign(speedX) * MAX_SPEED;
             }
 
+
             position += new Vector3((float)(speedX * dt), (float)(speedY * dt), 0);
             if (position.X < BOUNDS.Left)
             {

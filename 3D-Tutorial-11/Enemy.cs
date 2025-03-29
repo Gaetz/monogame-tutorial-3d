@@ -85,7 +85,7 @@ namespace Tutorial_11
 
         public override void Update(double dt)
         {
-            switch(phase)
+            switch (phase)
             {
                 case Phase.Enter:
                     UpdateEnterPhase(dt);
@@ -193,14 +193,14 @@ namespace Tutorial_11
                     phase = Phase.Enter;
                     position = GetPositionFromScreenSide(screenSideEnter);
                     break;
-                
+
                 case Phase.Main:
                     phase = Phase.Main;
                     mainPhaseCounter = 0.0f;
                     velocity = Vector3.Zero;
                     shootState = ShootState.Waiting;
                     break;
-                
+
                 case Phase.Exit:
                     phase = Phase.Exit;
                     targetPosition = GetPositionFromScreenSide(screenSideExit);

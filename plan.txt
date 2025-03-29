@@ -9,7 +9,7 @@ Step 8 : A shooting enemy
 Step 9 : Waves of enemies
 Step 10 : Particles and explosions
 Step 11 : Sounds and music
-Step 12 : Graphics polishing with Basic effect [using the shader to signal when enemies are hit etc.]
+Step 12 : Graphics polishing with Basic effect
 Step 13 : Moving floor 
 Step 14 : Lazer aiming
 Step 15 : Conversations and 2d UI

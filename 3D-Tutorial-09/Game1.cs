@@ -183,8 +183,8 @@ namespace Tutorial_09
                 }
             }
         }
-            
-        public void UpdateWaves(double dt)
+
+        private void UpdateWaves(double dt)
         {
             waveTimer += (float)dt;
             if (currentWave < waves.Count && waveTimer >= waves[currentWave].time)
