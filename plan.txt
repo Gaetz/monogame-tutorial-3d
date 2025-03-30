@@ -13,6 +13,6 @@ Step 12 : Graphics polishing with Basic effect
 Step 13 : Moving floor 
 Step 14 : Lazer aiming
 Step 15 : Conversations and 2d UI
-Step 16 : Menus ?
+Step 16 : Menus
 
 Spaceship by Jazoone - https://www.cgtrader.com/3d-models?author=jazoone
