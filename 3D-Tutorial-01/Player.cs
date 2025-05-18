@@ -9,6 +9,7 @@ namespace Tutorial_01
         private Model model;
         private Vector3 position;
         private Quaternion orientation;
+        private Vector3 scale;
         private Matrix world;
 
         public void Load(ContentManager content)
@@ -16,11 +17,12 @@ namespace Tutorial_01
             model = content.Load<Model>("Ship");
             position = new Vector3(0, 0.0f, -250.0f);
             orientation = Quaternion.Identity;
+            scale = new Vector3(2f, 2f, 2f);
         }
 
         public void Update(double dt)
         {
-            world = Matrix.CreateFromQuaternion(orientation) * Matrix.CreateTranslation(position);
+            world = Matrix.CreateScale(scale) * Matrix.CreateFromQuaternion(orientation) * Matrix.CreateTranslation(position);
         }
 
         public void Draw(Matrix view, Matrix projection)

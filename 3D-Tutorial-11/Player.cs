@@ -44,6 +44,7 @@ namespace Tutorial_11
         {
             base.Load(content, modelName);
             position = new Vector3(0, 0.0f, -250.0f);
+            scale = new Vector3(2f, 2f, 2f);
             shootSound = content.Load<SoundEffect>("Laser0");
         }
 

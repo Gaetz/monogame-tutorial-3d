@@ -45,6 +45,7 @@ namespace Tutorial_13
         {
             base.Load(content, modelName);
             position = new Vector3(0, 0.0f, -250.0f);
+            scale = new Vector3(2f, 2f, 2f);
             shootSound = content.Load<SoundEffect>("Laser0");
         }
 
@@ -187,7 +188,7 @@ namespace Tutorial_13
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
-                    effect.DiffuseColor = currentFlashColor.ToVector3();
+                    effect.EmissiveColor = currentFlashColor.ToVector3();
                 }
             }
             base.Draw(view, projection);

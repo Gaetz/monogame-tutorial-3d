@@ -5,7 +5,7 @@ namespace Tutorial_05
 {
     internal class Enemy : Entity
     {
-        private const float COLLIDER_SCALE = 4.0f;
+        private const float COLLIDER_SCALE = 30.0f;
         private BoundingBox boundingBox;
 
         public BoundingBox BoundingBox
@@ -16,7 +16,7 @@ namespace Tutorial_05
         public Enemy(Vector3 position) : base()
         {
             this.position = position;
-            scale = new Vector3(10f, 10f, 10f);
+            scale = new Vector3(2f, 2f, 2f);
         }
 
         private BoundingBox CreateBoundingBox()

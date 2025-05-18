@@ -25,7 +25,7 @@ namespace Tutorial_11
                 switch (element.type)
                 {
                     case "enemy":
-                        game.AddEnemy(element.position, element.screenSideEnter, element.screenSideExit, element.mainPhaseDuration, "BeachBall");
+                        game.AddEnemy(element.position, element.screenSideEnter, element.screenSideExit, element.mainPhaseDuration, "Saucer");
                         break;
                     case "powerup":
                         game.AddPowerUp(element.position);

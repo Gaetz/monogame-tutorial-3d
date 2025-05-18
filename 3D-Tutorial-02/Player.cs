@@ -11,6 +11,7 @@ namespace Tutorial_02
         private Model model;
         private Vector3 position;
         private Quaternion orientation;
+        private Vector3 scale;
         private Matrix world;
 
         const float ACCELERATION_RATE = 4000.0f;
@@ -26,6 +27,7 @@ namespace Tutorial_02
             model = content.Load<Model>("Ship");
             position = new Vector3(0, 0.0f, -250.0f);
             orientation = Quaternion.CreateFromAxisAngle(Vector3.Up, MathHelper.Pi);
+            scale = new Vector3(2f, 2f, 2f);
         }
 
         private void HandlingInput(double dt)
@@ -87,7 +89,7 @@ namespace Tutorial_02
         public void Update(double dt)
         {
             HandlingInput(dt);
-            world = Matrix.CreateFromQuaternion(orientation) * Matrix.CreateTranslation(position);
+            world = Matrix.CreateScale(scale) * Matrix.CreateFromQuaternion(orientation) * Matrix.CreateTranslation(position);
         }
 
         public void Draw(Matrix view, Matrix projection)

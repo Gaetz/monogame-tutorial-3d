@@ -30,7 +30,7 @@ namespace Tutorial_08
 
     internal class Enemy : Entity
     {
-        private const float COLLIDER_SCALE = 4.0f;
+        private const float COLLIDER_SCALE = 30.0f;
         private BoundingBox boundingBox;
 
         private Vector3 targetPosition = Vector3.Zero;
@@ -68,7 +68,7 @@ namespace Tutorial_08
             this.targetPosition = position;
             this.game = game;
             mainPhaseDuration = 5.0f;
-            scale = new Vector3(10f, 10f, 10f);
+            scale = new Vector3(2f, 2f, 2f);
             ChangePhase(Phase.Enter);
         }
 

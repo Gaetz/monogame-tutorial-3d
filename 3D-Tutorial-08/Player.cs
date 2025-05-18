@@ -42,6 +42,7 @@ namespace Tutorial_08
         {
             base.Load(content, modelName);
             position = new Vector3(0, 0.0f, -250.0f);
+            scale = new Vector3(2f, 2f, 2f);
         }
 
         private void HandlingInput(double dt)

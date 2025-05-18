@@ -33,7 +33,7 @@ namespace Tutorial_16
     {
         private SceneGame game;
 
-        private const float COLLIDER_SCALE = 4.0f;
+        private const float COLLIDER_SCALE = 30.0f;
         private BoundingBox boundingBox;
 
         private Vector3 targetPosition = Vector3.Zero;
@@ -72,7 +72,7 @@ namespace Tutorial_16
             targetPosition = position;
             screenSideEnter = enterSide;
             screenSideExit = exitSide;
-            scale = new Vector3(10f, 10f, 10f);
+            scale = new Vector3(2f, 2f, 2f);
             ChangePhase(Phase.Enter);
         }
 
@@ -259,7 +259,7 @@ namespace Tutorial_16
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
-                    effect.DiffuseColor = currentFlashColor.ToVector3();
+                    effect.EmissiveColor = currentFlashColor.ToVector3();
                 }
             }
             base.Draw(view, projection);

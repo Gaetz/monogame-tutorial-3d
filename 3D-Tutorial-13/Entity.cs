@@ -15,7 +15,7 @@ namespace Tutorial_13
 
         protected float flashTimer = 0.0f;
         protected float flashDuration = 0.5f;
-        protected Color currentFlashColor = Color.White;
+        protected Color currentFlashColor = Color.Transparent;
         protected Color flashColor = Color.Red;
 
         public Vector3 Position
@@ -77,11 +77,11 @@ namespace Tutorial_13
         {
             if (flashTimer > 0.0f)
             {
-                currentFlashColor = Color.Lerp(Color.White, flashColor, flashTimer/flashDuration);
+                currentFlashColor = Color.Lerp(Color.Transparent, flashColor, flashTimer/flashDuration);
                 flashTimer -= (float)dt;
                 if (flashTimer <= 0.0f)
                 {
-                    currentFlashColor = Color.White;
+                    currentFlashColor = Color.Transparent;
                 }
             }
         }
