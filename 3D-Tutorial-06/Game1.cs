@@ -47,7 +47,7 @@ namespace Tutorial_06
             player.Load(Content, "Ship");
 
             enemies.Add(new Enemy(new Vector3(0, 0, -500)));
-            enemies[0].Load(Content, "BeachBall");
+            enemies[0].Load(Content, "Saucer");
         }
 
         protected override void Update(GameTime gameTime)
