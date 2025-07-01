@@ -61,8 +61,7 @@ namespace Tutorial_17
 
         public void Update(double dt, GraphicsDevice graphicsDevice)
         {
-            KeyboardState state = Keyboard.GetState();
-            inputManager.Update(state);
+            inputManager.Update();
 
             ground.Update(dt);
             sky.Update(dt);
@@ -73,15 +72,15 @@ namespace Tutorial_17
             ship.Orientation = Quaternion.CreateFromAxisAngle(Vector3.Forward, x * -0.2f) * SHIP_DEFAULT_ORIENTATION;
             ship.Update(dt);
 
-            if (inputManager.IsKeyPressed(Keys.S) || inputManager.IsKeyPressed(Keys.Down))
+            if (inputManager.IsDownActionPressed())
             { 
                 menuItem = (menuItem + 1) % 2;
             }
-            if (inputManager.IsKeyPressed(Keys.W) || inputManager.IsKeyPressed(Keys.Z) || inputManager.IsKeyPressed(Keys.Up))
+            if (inputManager.IsUpActionPressed())
             {
                 menuItem = (menuItem - 1) % 2;
             }
-            if (inputManager.IsKeyPressed(Keys.Enter) || inputManager.IsKeyPressed(Keys.Space))
+            if (inputManager.IsValidationActionPressed())
             {
                 if (menuItem == 0)
                 {

@@ -33,6 +33,8 @@ namespace Tutorial_17
         private Entity laserAim;
         float laserAimDefaultLength = 0;
 
+        InputManager inputManager = new InputManager();
+
         public BoundingBox BoundingBox
         {
             get { return boundingBox; }
@@ -57,12 +59,11 @@ namespace Tutorial_17
 
         private void HandlingInput(double dt)
         {
-            KeyboardState state = Keyboard.GetState();
-            if (state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.Z))
+            if (inputManager.IsUpActionDown())
             {
                 speedY += ACCELERATION_RATE * (float)dt;
             }
-            if (state.IsKeyDown(Keys.S))
+            if (inputManager.IsDownActionDown())
             {
                 speedY -= ACCELERATION_RATE * (float)dt;
             }
@@ -72,11 +73,11 @@ namespace Tutorial_17
             }
 
 
-            if (state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.Q))
+            if (inputManager.IsLeftActionDown())
             {
                 speedX -= ACCELERATION_RATE * (float)dt;
             }
-            if (state.IsKeyDown(Keys.D))
+            if (inputManager.IsRightActionDown())
             {
                 speedX += ACCELERATION_RATE * (float)dt;
             }
@@ -128,12 +129,13 @@ namespace Tutorial_17
 
         public override void Update(double dt)
         {
+            inputManager.Update();
+
             HandlingInput(dt);
             HandleAiming();
 
             // Handle shooting
-            MouseState mouse = Mouse.GetState();
-            if (mouse.LeftButton == ButtonState.Pressed && cooldownTimer <= 0)
+            if (inputManager.IsShootActionPressed() && cooldownTimer <= 0)
             {
                 shootSound.Play();
                 if (projectileNumber == 1)
@@ -151,6 +153,8 @@ namespace Tutorial_17
             base.Update(dt);
             boundingBox = CreateBoundingBox();
             laserAim.Update(dt);
+
+            inputManager.EndUpdate();
         }
 
         public void PowerUp()

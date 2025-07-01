@@ -1,11 +1,12 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace Tutorial_17
 {
     internal class InputManager
     {
-        KeyboardState previousState;
-        KeyboardState currentState;
+        KeyboardState previousKeyboardState;
+        KeyboardState currentKeyboardState;
         GamePadState previousGamePadState;
         GamePadState currentGamePadState;
         MouseState previousMouseState;
@@ -15,16 +16,21 @@ namespace Tutorial_17
         bool isPreviousGamePadStateNull = true;
         bool isPreviousMouseStateNull = true;
 
-        public void Update(KeyboardState state, GamePadState gamePadState)
+        public void Update()
         {
-            currentState = state;
+            KeyboardState keyboardState = Keyboard.GetState();
+            GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
+            MouseState mouseState = Mouse.GetState();
+            currentKeyboardState = keyboardState;
             currentGamePadState = gamePadState;
+            currentMouseState = mouseState;
         }
 
         public void EndUpdate()
         {
-            previousState = currentState;
+            previousKeyboardState = currentKeyboardState;
             previousGamePadState = currentGamePadState;
+            previousMouseState = currentMouseState;
             isPreviousStateNull = false;
             isPreviousMouseStateNull = false;
             isPreviousGamePadStateNull = false;
@@ -32,14 +38,14 @@ namespace Tutorial_17
 
         private bool IsKeyPressed(Keys key)
         {
-            return currentState.IsKeyDown(key) 
-                && previousState.IsKeyUp(key) 
+            return currentKeyboardState.IsKeyDown(key) 
+                && previousKeyboardState.IsKeyUp(key) 
                 && !isPreviousStateNull;
         }
 
         private bool IsKeyDown(Keys key)
         {
-            return currentState.IsKeyDown(key);
+            return currentKeyboardState.IsKeyDown(key);
         }
 
         private bool IsButtonPressed(Buttons button)
@@ -57,8 +63,8 @@ namespace Tutorial_17
         private bool IsMouseLeftButtonPressed()
         {
             return currentMouseState.LeftButton == ButtonState.Pressed 
-                && previousMouseState.LeftButton == ButtonState.Released 
-                && !isPreviousMouseStateNull;
+            && previousMouseState.LeftButton == ButtonState.Released 
+            && !isPreviousMouseStateNull;
         }
 
         private bool IsMouseLeftButtonDown()
@@ -80,28 +86,52 @@ namespace Tutorial_17
                 || IsKeyPressed(Keys.Space) || IsKeyPressed(Keys.Enter);
         }
 
-        public bool IsUpAction() 
+        public bool IsUpActionDown() 
         {
             return IsKeyDown(Keys.W) || IsKeyDown(Keys.Up) || IsKeyDown(Keys.Z)
                 || IsButtonDown(Buttons.DPadUp) || IsButtonDown(Buttons.LeftThumbstickUp);
         }
 
-        public bool IsDownAction() 
+        public bool IsDownActionDown() 
         {
             return IsKeyDown(Keys.S) || IsKeyDown(Keys.Down) 
                 || IsButtonDown(Buttons.DPadDown) || IsButtonDown(Buttons.LeftThumbstickDown);
         }
 
-        public bool IsLeftAction() 
+        public bool IsLeftActionDown() 
         {
             return IsKeyDown(Keys.A) || IsKeyDown(Keys.Left) || IsKeyDown(Keys.Q)
                 || IsButtonDown(Buttons.DPadLeft) || IsButtonDown(Buttons.LeftThumbstickLeft);
         }
 
-        public bool IsRightAction() 
+        public bool IsRightActionDown() 
         {
             return IsKeyDown(Keys.D) || IsKeyDown(Keys.Right) 
                 || IsButtonDown(Buttons.DPadRight) || IsButtonDown(Buttons.LeftThumbstickRight);
+        }
+
+        public bool IsUpActionPressed()
+        {
+            return IsKeyPressed(Keys.W) || IsKeyPressed(Keys.Up) || IsKeyPressed(Keys.Z)
+                || IsButtonPressed(Buttons.DPadUp) || IsButtonPressed(Buttons.LeftThumbstickUp);
+        }
+
+        public bool IsDownActionPressed()
+        {
+            return IsKeyPressed(Keys.S) || IsKeyPressed(Keys.Down)
+                || IsButtonPressed(Buttons.DPadDown) || IsButtonPressed(Buttons.LeftThumbstickDown);
+        }
+
+        public bool IsLeftActionPressed()
+        {
+            return IsKeyPressed(Keys.A) || IsKeyPressed(Keys.Left) || IsKeyPressed(Keys.Q)
+                || IsButtonPressed(Buttons.DPadLeft) || IsButtonPressed(Buttons.LeftThumbstickLeft);
+        }
+
+        public bool IsRightActionPressed()
+        {
+            return IsKeyPressed(Keys.D) || IsKeyPressed(Keys.Right)
+                || IsButtonPressed(Buttons.DPadRight) || IsButtonPressed(Buttons.LeftThumbstickRight);
         }
     }
 }

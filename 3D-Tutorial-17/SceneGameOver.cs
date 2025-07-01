@@ -25,12 +25,13 @@ namespace Tutorial_17
 
         public void Update(double dt, GraphicsDevice graphicsDevice)
         {
-            KeyboardState state = Keyboard.GetState();
-            inputManager.Update(state);
-            if (inputManager.IsKeyPressed(Keys.Enter) || inputManager.IsKeyPressed(Keys.Space))
+            inputManager.Update();
+
+            if (inputManager.IsValidationActionPressed())
             {
                 game.GoToMenu();
             }
+
             inputManager.EndUpdate();
         }
 
