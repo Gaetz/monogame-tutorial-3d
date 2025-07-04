@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+	<Asset Type="Tutorial_Data.MessageData[]">
+		<Item>
+			<id>0</id>
+			<time>1.0</time>
+			<duration>2.0</duration>
+			<portrait>pilot</portrait>
+			<message>Ok Robot! What do we destroy today?</message>
+		</Item>
+		<Item>
+			<id>0</id>
+			<time>3.0</time>
+			<duration>3.0</duration>
+			<portrait>robot</portrait>
+			<message>The motherboard has been overtaken by agressive malignant programs. Unfortunalely, they threaten both the system's data and our corporeal integrity.</message>
+		</Item>
+		<Item>
+			<id>0</id>
+			<time>6.0</time>
+			<duration>2.5</duration>
+			<portrait>robot</portrait>
+			<message>I recommand a cautious approach so we can keep the ship's repairs to a minimum.</message>
+		</Item>
+		<Item>
+			<id>0</id>
+			<time>8.5</time>
+			<duration>2.0</duration>
+			<portrait>pilot</portrait>
+			<message>What are you useful for if not repairing the ship?</message>
+		</Item>
+		<Item>
+			<id>0</id>
+			<time>10.5</time>
+			<duration>3.0</duration>
+			<portrait>robot</portrait>
+			<message>My language subsystems also fit for philosophical dissertation and metaphysical inquiries.</message>
+		</Item>
+		<Item>
+			<id>0</id>
+			<time>13.5</time>
+			<duration>2.0</duration>
+			<portrait>pilot</portrait>
+			<message>Not interested. Let's rock!</message>
+		</Item>
+		
+	</Asset>
+</XnaContent>
