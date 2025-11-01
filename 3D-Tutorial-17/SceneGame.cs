@@ -11,12 +11,10 @@ namespace Tutorial_17
     {
         private Game1 game;
         private ContentManager content;
+        private Camera camera = new Camera(new Vector3(0, 0, 100), new Vector3(0, 0, 0), Vector3.Up, 45f);
 
         private Player player;
         private PlayerAim playerAim;
-
-        private Matrix view = Matrix.CreateLookAt(new Vector3(0, 0, 100), new Vector3(0, 0, 0), Vector3.UnitY);
-        private Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800f / 480f, 1f, 10000f);
 
         private List<Projectile> projectiles = new List<Projectile>();
         private List<Enemy> enemies = new List<Enemy>();
@@ -276,30 +274,30 @@ namespace Tutorial_17
 
             graphicsDevice.BlendState = BlendState.Opaque;
 
-            ground.Draw(view, projection);
-            sky.Draw(view, projection);
-            player.Draw(view, projection);
+            ground.Draw(camera.View, camera.Projection);
+            sky.Draw(camera.View, camera.Projection);
+            player.Draw(camera.View, camera.Projection);
 
             foreach (Projectile projectile in projectiles)
             {
-                projectile.Draw(view, projection);
+                projectile.Draw(camera.View, camera.Projection);
             }
 
             foreach (Enemy enemy in enemies)
             {
-                enemy.Draw(view, projection);
+                enemy.Draw(camera.View, camera.Projection);
             }
 
             foreach (PowerUp powerUp in powerUps)
             {
-                powerUp.Draw(view, projection);
+                powerUp.Draw(camera.View, camera.Projection);
             }
 
             graphicsDevice.BlendState = BlendState.NonPremultiplied;
-            playerAim.Draw(view, projection);
+            playerAim.Draw(camera.View, camera.Projection);
             foreach (ParticleSystem particles in particleSystems)
             {
-                particles.Draw(view, projection);
+                particles.Draw(camera.View, camera.Projection);
             }
 
             spriteBatch.Begin();

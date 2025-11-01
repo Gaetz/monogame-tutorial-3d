@@ -10,9 +10,7 @@ namespace Tutorial_17
     internal class SceneMenu : Scene
     {
         private Game1 game;
-
-        private Matrix view = Matrix.CreateLookAt(new Vector3(-200, 100, -300), new Vector3(100, -100, 0), Vector3.UnitY);
-        private Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800f / 480f, 1f, 10000f);
+        private Camera camera = new Camera(new Vector3(-200, 100, -300), new Vector3(100, -100, 0), Vector3.Up, 45f);
 
         private ShiftingTexture ground;
         private ShiftingTexture sky;
@@ -104,9 +102,9 @@ namespace Tutorial_17
             Color bgColor = new Color(30, 0, 50);
             graphicsDevice.Clear(bgColor);
 
-            ground.Draw(view, projection);
-            sky.Draw(view, projection);
-            ship.Draw(view, projection);
+            ground.Draw(camera.View, camera.Projection);
+            sky.Draw(camera.View, camera.Projection);
+            ship.Draw(camera.View, camera.Projection);
 
             spriteBatch.Begin();
             if (menuItem == 0)
