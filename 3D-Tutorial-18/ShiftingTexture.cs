@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Tutorial_17
+namespace Tutorial_18
 {
     internal class ShiftingTexture : Entity
     {

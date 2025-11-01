@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tutorial_17
+namespace Tutorial_18
 {
     public enum DisplayedCharacter
     {

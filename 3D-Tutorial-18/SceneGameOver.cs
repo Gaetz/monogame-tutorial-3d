@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace Tutorial_17
+namespace Tutorial_18
 {
     internal class SceneGameOver : Scene
     {

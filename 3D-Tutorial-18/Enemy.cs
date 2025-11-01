@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace Tutorial_17
+namespace Tutorial_18
 {
     public enum Phase
     {

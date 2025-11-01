@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 
-namespace Tutorial_17
+namespace Tutorial_18
 {
     internal class Player : Entity
     {

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 
-namespace Tutorial_17
+namespace Tutorial_18
 {
     public class SceneGame : Scene
     {

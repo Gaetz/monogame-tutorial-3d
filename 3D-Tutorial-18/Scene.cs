@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Tutorial_17
+namespace Tutorial_18
 {
     public enum SceneType
     {

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
-namespace Tutorial_17
+namespace Tutorial_18
 {
     internal class ParticleSystem
     {

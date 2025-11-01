@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
-namespace Tutorial_17
+namespace Tutorial_18
 {
     internal class PlayerAim : Entity
     {

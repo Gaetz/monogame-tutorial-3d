@@ -4,9 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using System;
 
-namespace Tutorial_17
+namespace Tutorial_18
 {
-
     internal class SceneMenu : Scene
     {
         private Game1 game;

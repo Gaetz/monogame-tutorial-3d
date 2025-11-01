@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
-namespace Tutorial_17
+namespace Tutorial_18
 {
     internal class Entity
     {
